@@ -1,2 +1,2 @@
-export { default as Prueba } from './components/ui/Prueba';
-export { default as Ensayo } from './components/basicos/Ensayo';
+export * as ui from './components/ui';
+export * as datosbasicos from './components/basicos';
