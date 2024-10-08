@@ -1,8 +1,9 @@
 {
   "name": "eco-unp",
   "version": "0.0.210",
-  "main": "index.js",
-  "type": "module",
+  "main": "dist/bundle.cjs.js",
+  "module": "dist/bundle.esm.js",
+  "types": "dist/types/index.d.ts",
   "scripts": {
     "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
