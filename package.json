@@ -1,6 +1,6 @@
 {
   "name": "eco-unp",
-  "version": "0.0.110",
+  "version": "0.0.1",
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.esm.js",
   "types": "dist/types/index.d.ts",
