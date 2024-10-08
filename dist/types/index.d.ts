@@ -1,2 +1,1 @@
-export * as ui from './components/ui';
-export * as datosbasicos from './components/basicos';
+export { default as MenuLateral } from './components/MenuLateral';

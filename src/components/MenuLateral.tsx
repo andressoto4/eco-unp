@@ -1,6 +1,6 @@
 import React from "react";
 import { BiMenu, BiMenuAltRight, BiHome, BiLinkAlt, BiEnvelope, BiLogoRedux, BiErrorCircle, BiLogOut, BiAnalyse, BiBookAlt, BiMapPin, BiShieldPlus, BiSolidPlaneAlt } from "react-icons/bi";
-import '../../Styles/MenuLateral.css';
+import '../styles/MenuLateral.css';
 
 
 interface MenuLateralProps {
