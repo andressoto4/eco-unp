@@ -12,6 +12,6 @@ var Ensayo = function (_a) {
     return React.createElement("button", null, label);
 };
 
-exports.Button = Prueba;
 exports.Ensayo = Ensayo;
+exports.Prueba = Prueba;
 //# sourceMappingURL=bundle.cjs.js.map

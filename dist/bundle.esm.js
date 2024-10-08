@@ -10,5 +10,5 @@ var Ensayo = function (_a) {
     return React.createElement("button", null, label);
 };
 
-export { Prueba as Button, Ensayo };
+export { Ensayo, Prueba };
 //# sourceMappingURL=bundle.esm.js.map
