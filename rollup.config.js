@@ -1,6 +1,7 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
+import postcss from 'rollup-plugin-postcss';
 
 export default {
   input: 'src/index.tsx',
@@ -16,6 +17,13 @@ export default {
       sourcemap: true,
     },
   ],
-  plugins: [resolve(), commonjs(), typescript()],
+  plugins: [
+    resolve(),
+    commonjs(),
+    typescript(),
+    postcss({
+      extensions: ['.css'],
+    }),
+  ],
   external: ['react', 'react-dom'],
 };
