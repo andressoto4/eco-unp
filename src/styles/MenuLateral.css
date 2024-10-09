@@ -302,14 +302,16 @@ body {
 /* main-section */
 
 .main-section {
-  margin-left: 78px;
+  margin-top: 7px;
+  margin-left: 88px;
+  margin-right: 10px;
   transition: margin-left .5s ease;
   z-index: 1;
   height: calc(100vh - 17px);
 }
 
 .menu-open .main-section {
-  margin-left: 280px;
+  margin-left: 290px;
   z-index: 1;
 }
 
