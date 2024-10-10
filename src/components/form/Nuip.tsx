@@ -6,8 +6,10 @@ interface NuipProps {
 }
 
 const Nuip: React.FC<NuipProps> = ({ attach = false }) => {
+    
     return (
         <React.Fragment>
+
             <Row>
 
                 {/* Select para el Tipo de identificación */}
