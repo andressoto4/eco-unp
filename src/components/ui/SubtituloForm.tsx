@@ -4,7 +4,7 @@ import { Col, Row } from 'react-bootstrap';
 import { IconType } from "react-icons";
 
 interface SubtituloFormProps {
-    titulo: String;
+    subtitulo: String;
     icon: IconType
 };
 
@@ -18,7 +18,7 @@ const iconStyle = {
     fontSize: '1.25rem'
 }
 
-const SubtituloForm: React.FC<SubtituloFormProps> = ({titulo, icon: Icon }) => {
+const SubtituloForm: React.FC<SubtituloFormProps> = ({subtitulo, icon: Icon }) => {
 
     return(
         <Row className='mb-1 mt-3'>
@@ -26,7 +26,7 @@ const SubtituloForm: React.FC<SubtituloFormProps> = ({titulo, icon: Icon }) => {
                 <Icon style={iconStyle} />
             </Col>
             <Col className="ps-1 col-auto align-self-center">
-                <p style={subtituloStyle}>{titulo}</p>
+                <p style={subtituloStyle}>{subtitulo}</p>
             </Col>
         </Row>
     );

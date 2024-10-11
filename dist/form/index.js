@@ -3053,5 +3053,55 @@ var Nuip = function (_a) {
                     React.createElement(FormControl$1, { type: "file", required: attach }))))));
 };
 
+var NombrePersona = function () {
+    return (React.createElement(Row, null,
+        React.createElement(Col, { lg: 3, md: 6, xs: 12 },
+            React.createElement(FormGroup, { className: "mb-3" },
+                React.createElement(FormLabel, null,
+                    "Primer nombre ",
+                    React.createElement("span", { className: "text-danger" }, "*")),
+                React.createElement(FormControl$1, { type: "text", maxLength: 20, required: true }))),
+        React.createElement(Col, { lg: 3, md: 6, xs: 12 },
+            React.createElement(FormGroup, { className: "mb-3" },
+                React.createElement(FormLabel, null, "Segundo nombre"),
+                React.createElement(FormControl$1, { type: "text", maxLength: 50 }))),
+        React.createElement(Col, { lg: 3, md: 6, xs: 12 },
+            React.createElement(FormGroup, { className: "mb-3" },
+                React.createElement(FormLabel, null,
+                    "Primer apellido ",
+                    React.createElement("span", { className: "text-danger" }, "*")),
+                React.createElement(FormControl$1, { type: "text", maxLength: 50, required: true }))),
+        React.createElement(Col, { lg: 3, md: 6, xs: 12 },
+            React.createElement(FormGroup, { className: "mb-3" },
+                React.createElement(FormLabel, null, "Segundo apellido"),
+                React.createElement(FormControl$1, { type: "text", maxLength: 50 })))));
+};
+
+var ContactoPersona = function () {
+    return (React.createElement(Row, null,
+        React.createElement(Col, { md: 4, xs: 12 },
+            React.createElement(FormGroup, { className: "mb-3" },
+                React.createElement(FormLabel, null,
+                    "Celular uno ",
+                    React.createElement("span", { className: "text-danger" }, "*")),
+                React.createElement(FormControl$1, { minLength: 10, maxLength: 10, placeholder: "Ej: 300 200 2000", required: true }))),
+        React.createElement(Col, { md: 4, xs: 12 },
+            React.createElement(FormGroup, { className: "mb-3" },
+                React.createElement(FormLabel, null, "Celular dos "),
+                React.createElement(FormControl$1, { minLength: 10, maxLength: 10, placeholder: "Ej: 300 200 2000" }))),
+        React.createElement(Col, { md: 4, xs: 12 },
+            React.createElement(FormGroup, { className: "mb-3" },
+                React.createElement(FormLabel, null, "Tel\u00E9fono (o celular tres)"),
+                React.createElement(FormControl$1, { minLength: 10, maxLength: 10, placeholder: "Ej: 600 700 7000" }))),
+        React.createElement(Col, { xl: 6, md: 9, xs: 12 },
+            React.createElement(FormGroup, { className: "mb-3" },
+                React.createElement(FormLabel, null,
+                    "Correo electr\u00F3nico ",
+                    React.createElement("span", { className: "text-danger" }, "*")),
+                React.createElement(FormControl$1, { type: "email", maxLength: 100, required: true })))));
+};
+
+exports.ContactoPersona = ContactoPersona;
+exports.NombrePersona = NombrePersona;
 exports.Nuip = Nuip;
 //# sourceMappingURL=index.js.map

@@ -3033,5 +3033,53 @@ var Nuip = function (_a) {
                     React__default.createElement(FormControl$1, { type: "file", required: attach }))))));
 };
 
-export { Nuip };
+var NombrePersona = function () {
+    return (React__default.createElement(Row, null,
+        React__default.createElement(Col, { lg: 3, md: 6, xs: 12 },
+            React__default.createElement(FormGroup, { className: "mb-3" },
+                React__default.createElement(FormLabel, null,
+                    "Primer nombre ",
+                    React__default.createElement("span", { className: "text-danger" }, "*")),
+                React__default.createElement(FormControl$1, { type: "text", maxLength: 20, required: true }))),
+        React__default.createElement(Col, { lg: 3, md: 6, xs: 12 },
+            React__default.createElement(FormGroup, { className: "mb-3" },
+                React__default.createElement(FormLabel, null, "Segundo nombre"),
+                React__default.createElement(FormControl$1, { type: "text", maxLength: 50 }))),
+        React__default.createElement(Col, { lg: 3, md: 6, xs: 12 },
+            React__default.createElement(FormGroup, { className: "mb-3" },
+                React__default.createElement(FormLabel, null,
+                    "Primer apellido ",
+                    React__default.createElement("span", { className: "text-danger" }, "*")),
+                React__default.createElement(FormControl$1, { type: "text", maxLength: 50, required: true }))),
+        React__default.createElement(Col, { lg: 3, md: 6, xs: 12 },
+            React__default.createElement(FormGroup, { className: "mb-3" },
+                React__default.createElement(FormLabel, null, "Segundo apellido"),
+                React__default.createElement(FormControl$1, { type: "text", maxLength: 50 })))));
+};
+
+var ContactoPersona = function () {
+    return (React__default.createElement(Row, null,
+        React__default.createElement(Col, { md: 4, xs: 12 },
+            React__default.createElement(FormGroup, { className: "mb-3" },
+                React__default.createElement(FormLabel, null,
+                    "Celular uno ",
+                    React__default.createElement("span", { className: "text-danger" }, "*")),
+                React__default.createElement(FormControl$1, { minLength: 10, maxLength: 10, placeholder: "Ej: 300 200 2000", required: true }))),
+        React__default.createElement(Col, { md: 4, xs: 12 },
+            React__default.createElement(FormGroup, { className: "mb-3" },
+                React__default.createElement(FormLabel, null, "Celular dos "),
+                React__default.createElement(FormControl$1, { minLength: 10, maxLength: 10, placeholder: "Ej: 300 200 2000" }))),
+        React__default.createElement(Col, { md: 4, xs: 12 },
+            React__default.createElement(FormGroup, { className: "mb-3" },
+                React__default.createElement(FormLabel, null, "Tel\u00E9fono (o celular tres)"),
+                React__default.createElement(FormControl$1, { minLength: 10, maxLength: 10, placeholder: "Ej: 600 700 7000" }))),
+        React__default.createElement(Col, { xl: 6, md: 9, xs: 12 },
+            React__default.createElement(FormGroup, { className: "mb-3" },
+                React__default.createElement(FormLabel, null,
+                    "Correo electr\u00F3nico ",
+                    React__default.createElement("span", { className: "text-danger" }, "*")),
+                React__default.createElement(FormControl$1, { type: "email", maxLength: 100, required: true })))));
+};
+
+export { ContactoPersona, NombrePersona, Nuip };
 //# sourceMappingURL=index.esm.js.map

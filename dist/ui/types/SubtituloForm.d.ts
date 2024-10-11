@@ -1,7 +1,7 @@
 import React from "react";
 import { IconType } from "react-icons";
 interface SubtituloFormProps {
-    titulo: String;
+    subtitulo: String;
     icon: IconType;
 }
 declare const SubtituloForm: React.FC<SubtituloFormProps>;
