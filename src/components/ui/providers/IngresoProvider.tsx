@@ -1,5 +1,5 @@
 import React from "react";
-import { IdUsuarioContext, IdContrasegnaContext } from "../contex/IngresoContex";
+import { IdUsuarioContext, IdContrasegnaContext } from "../contexs/IngresoContex";
 
 // Crear un provider combinado para ingreso
 interface IngresoProviderProps {
@@ -15,7 +15,7 @@ const IngresoProvider: React.FC<IngresoProviderProps> = ({ children }) => {
   // Estado para manejar el ID de la contraseña
   const [idContrasegna, setIdContrasegna] = React.useState<string>("");
 
-// ------> Renderizado
+  // ------> Renderizado
   return (
 
     // Proveedor del contexto de ID del usuario

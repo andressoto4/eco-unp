@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { IdUsuarioContext, IdContrasegnaContext } from "../contex/IngresoContex";
+import { IdUsuarioContext, IdContrasegnaContext } from "../contexs/IngresoContex";
 import { validarInputUsuario } from "src/funciones/ValidacionInput";
 import { IconBaseProps } from 'react-icons/lib'
 import { RiLockPasswordFill } from "react-icons/ri";
