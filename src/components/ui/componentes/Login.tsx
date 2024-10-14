@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import { IdUsuarioContext, IdContrasegnaContext } from "../contexs/IngresoContex";
 import { validarInputUsuario } from "src/funciones/ValidacionInput";
-import { IconBaseProps } from 'react-icons/lib'
 import { RiLockPasswordFill } from "react-icons/ri";
 import { FaUser, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { Col, FormGroup, FormLabel, FormControl, InputGroup, Button } from "react-bootstrap";
@@ -16,7 +15,9 @@ interface ContrasegnaProps {
 
 interface SocialIconProps {
     color: string;
-    IconComponent: React.ComponentType<IconBaseProps>;
+    IconoRedSocial: React.ComponentType<{ size: string; color: string }>;
+    descripcion: string;
+    enlace: string;
 }
 
 // Componente del input de usuario
@@ -143,10 +144,12 @@ const Contrasegna: React.FC<ContrasegnaProps> = ({ contrasegnaRef }) => {
     );
 };
 
-const RedesSocialesICon: React.FC<SocialIconProps> = ({ color, IconComponent }) => {
+const RedesSociales: React.FC<SocialIconProps> = ({ color, IconoRedSocial, descripcion, enlace }) => {
+
+    const [isHovered, setIsHovered] = useState(false);
 
     const style = {
-        backgroundColor: color,
+        backgroundColor: isHovered ? '#365072' : color,
         width: '37px',
         height: '37px',
         display: 'flex',
@@ -155,14 +158,38 @@ const RedesSocialesICon: React.FC<SocialIconProps> = ({ color, IconComponent }) 
         borderRadius: '50%',
         marginTop: '2px',
         marginRight: '8px',
+        position: 'relative' as 'relative',
+        cursor: 'pointer',
+    };
+
+    const tooltipStyle: React.CSSProperties = {
+        visibility: isHovered ? 'visible' : 'hidden',
+        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        color: '#365072',
+        textAlign: 'center',
+        borderRadius: '6px',
+        padding: '5px',
+        position: 'absolute',
+        zIndex: 1,
+        top: '120%',
+        left: '50%',
+        marginLeft: '-75px',
+        width: '150px',
+        fontWeight: '600'
     };
 
     return (
-        <div style={style}>
-            <IconComponent size={'1.2em'} color="#FFF" />
-        </div>
+        <a href={enlace} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none' }}>
+            <div
+                style={style}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+            >
+                <IconoRedSocial size={'1.2em'} color="#FFF" />
+                <div style={tooltipStyle}>{descripcion}</div>
+            </div>
+        </a>
     );
-
 };
 
-export { Usuario, Contrasegna, RedesSocialesICon };
+export { Usuario, Contrasegna, RedesSociales };

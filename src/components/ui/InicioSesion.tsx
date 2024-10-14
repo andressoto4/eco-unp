@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 
-import { FaFacebook, FaInstagram, FaXTwitter, FaYoutube } from 'react-icons/fa6';
+import { FaFacebook, FaInstagram, FaXTwitter, FaYoutube, FaPhoneFlip, FaHeadphones } from 'react-icons/fa6';
 import { MdError } from "react-icons/md";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Row, Col, Container, Button, Alert } from "react-bootstrap";
@@ -9,21 +9,14 @@ import { toast } from "react-toastify";
 import { IngresoProvider } from './providers/IngresoProvider'
 import { LogosUnp } from "./componentes/Logos";
 import { Recaptcha } from "./componentes/Recaptcha";
-import { Usuario, Contrasegna, RedesSocialesICon } from "./componentes/Login";
+import { Usuario, Contrasegna, RedesSociales } from "./componentes/Login";
 
 import './styles/Bootstrap.css'
+import './styles/IniciarSesionStyles.css'
 
 interface FormIngresoProps {
     children?: React.ReactNode;
 }
-
-const containerStyle = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: '100vh',
-    backgroundColor: '#E0E0E0'
-  };
 
 const Login: React.FC<FormIngresoProps> = (props) => {
 
@@ -154,10 +147,11 @@ const Login: React.FC<FormIngresoProps> = (props) => {
         }
     };
 
+    // ------ > Renderizado
     return (
 
         // Div que permite al login a ubicarse en el centro
-        <div style={containerStyle}>
+        <div className="login-container">
 
             {/* Contenedor principal con sombra y ancho máximo de 720px */}
             <Container style={{ maxWidth: "720px" }}>
@@ -201,7 +195,7 @@ const Login: React.FC<FormIngresoProps> = (props) => {
                                 </Col>
 
                                 {/* reCAPTCHA  */}
-                                <Recaptcha onChange={handleRecaptchaChange} sitekey="6LeC9F0qAAAAAJrKsyU-wpvYmDquDcAoqhH_oASk"  />
+                                <Recaptcha onChange={handleRecaptchaChange} sitekey="6LeC9F0qAAAAAJrKsyU-wpvYmDquDcAoqhH_oASk" />
 
                             </form>
                         </Row>
@@ -221,10 +215,12 @@ const Login: React.FC<FormIngresoProps> = (props) => {
 
                     {/* Columna para los iconos botones de redes sociales */}
                     <Col className="ms-0 d-flex justify-content-start">
-                        <RedesSocialesICon color="#000" IconComponent={FaXTwitter} />
-                        <RedesSocialesICon color="#F00075" IconComponent={FaInstagram} />
-                        <RedesSocialesICon color="#1778F2" IconComponent={FaFacebook} />
-                        <RedesSocialesICon color="#FF0000" IconComponent={FaYoutube} />
+                        <RedesSociales IconoRedSocial={FaXTwitter} color="#000" descripcion="@UNPColombia" enlace="https://x.com/UNPColombia" />
+                        <RedesSociales IconoRedSocial={FaInstagram} color="#F00075" descripcion="@unpcolombia" enlace="https://www.instagram.com/unpcolombia" />
+                        <RedesSociales IconoRedSocial={FaFacebook} color="#1778F2" descripcion="@UNPColombia" enlace="https://www.facebook.com/UNPColombia" />
+                        <RedesSociales IconoRedSocial={FaYoutube} color="#FF0000" descripcion="@unpcolombia" enlace="https://www.youtube.com/channel/UCUiRLOI-MUqa7ATG-mJwY1w" />
+                        <RedesSociales IconoRedSocial={FaHeadphones} color='#1CCFF9' descripcion="UNPRadio" enlace="https://unpradio.unp.gov.co" />
+                        <RedesSociales IconoRedSocial={FaPhoneFlip} color='#D32929' descripcion="Línea Vida 103" enlace="https://www.unp.gov.co/atencion-y-servicios-a-la-ciudadania/directorio/linea-vida-103" />
                     </Col>
 
                     {/* Enlace a la política de seguridad de la información y protección de datos personales */}
@@ -235,7 +231,7 @@ const Login: React.FC<FormIngresoProps> = (props) => {
                             rel="noopener noreferrer"
                             style={{ textDecoration: 'none' }}
                         >
-                            <p style={{ margin: '0px', color: '#365072', fontWeight: '700', fontSize: '0.75em', textAlign: 'center', minWidth: '235px', maxWidth: '235px' }}>
+                            <p className="politica-datos">
                                 Políticas de seguridad de la información y protección de datos personales
                             </p>
                         </a>
@@ -251,12 +247,21 @@ const Login: React.FC<FormIngresoProps> = (props) => {
     );
 };
 
+// Definición del componente funcional IniciarSesion
 const IniciarSesion: React.FC = () => {
-    return (
-        <IngresoProvider>
-            <Login />
-        </IngresoProvider>
-    );
-};
 
-export default IniciarSesion
+    // -----> Renderizado
+    return (
+
+      // El componente IngresoProvider envuelve al componente Login
+      <IngresoProvider>
+        <Login />
+      </IngresoProvider>
+      
+    );
+    
+  };
+  
+  // Exporta el componente IniciarSesion para su uso en otros archivos
+  export default IniciarSesion;
+  
