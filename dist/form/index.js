@@ -1,8 +1,8 @@
 'use strict';
 
-var UbicacionPersona = require('../UbicacionPersona-CiBqPzez.js');
+var UbicacionPersona = require('../UbicacionPersona-CoSwTb6t.js');
 require('react');
-require('../index-vOWaKo8E.js');
+require('../index-CvlnH9Nj.js');
 require('react-dom');
 
 

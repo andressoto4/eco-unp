@@ -1,5 +1,4 @@
 import React from "react";
-import { IconBaseProps } from 'react-icons/lib';
 interface UsuarioProps {
     usuarioRef: React.RefObject<HTMLInputElement>;
 }
@@ -8,9 +7,14 @@ interface ContrasegnaProps {
 }
 interface SocialIconProps {
     color: string;
-    IconComponent: React.ComponentType<IconBaseProps>;
+    IconoRedSocial: React.ComponentType<{
+        size: string;
+        color: string;
+    }>;
+    descripcion: string;
+    enlace: string;
 }
 declare const Usuario: React.FC<UsuarioProps>;
 declare const Contrasegna: React.FC<ContrasegnaProps>;
-declare const RedesSocialesICon: React.FC<SocialIconProps>;
-export { Usuario, Contrasegna, RedesSocialesICon };
+declare const RedesSociales: React.FC<SocialIconProps>;
+export { Usuario, Contrasegna, RedesSociales };

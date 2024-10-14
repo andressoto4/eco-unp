@@ -1,5 +1,5 @@
-export { C as ContactoPersona, N as NombrePersona, a as Nuip, U as UbicacionPersona } from '../UbicacionPersona-CvsEgnDq.js';
+export { C as ContactoPersona, N as NombrePersona, a as Nuip, U as UbicacionPersona } from '../UbicacionPersona-Cys3KlRD.js';
 import 'react';
-import '../index-DzkrM1Rw.js';
+import '../index-TjEz6CwD.js';
 import 'react-dom';
 //# sourceMappingURL=index.esm.js.map
