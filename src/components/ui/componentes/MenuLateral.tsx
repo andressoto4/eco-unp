@@ -20,7 +20,7 @@ const MenuLateral: React.FC<MenuLateralProps> = ({ onToggle, isOpen }) => {
 
                 <div className="logo_details">
 
-                    <img src="../../../public/logo-unp.png" alt="Logo" className="icon logo-image" />
+                    <img src="/logo-unp-gris.png" alt="Logo" className="icon logo-image" />
                     <div className="logo-name">ECOSISTEMA UNP</div>
                     {isOpen ? <BiMenuAltRight className="bx bx-menu i" id="btn" onClick={onToggle} /> : <BiMenu className="bx bx-menu i" id="btn" onClick={onToggle} />}
 

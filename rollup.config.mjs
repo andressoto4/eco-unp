@@ -3,36 +3,51 @@ import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
 import postcss from 'rollup-plugin-postcss';
 import alias from '@rollup/plugin-alias';
+import del from 'rollup-plugin-delete';
 
 export default [
   {
-    input: 'src/components/ui/index.tsx',
+    input: {
+      index: 'src/index.tsx',
+      ui: 'src/components/ui/index.tsx',
+      form: 'src/components/form/index.tsx',
+    },
     output: [
       {
-        file: 'dist/ui/index.js',
-        format: 'cjs',
-        sourcemap: true,
-      },
-      {
-        file: 'dist/ui/index.esm.js',
+        dir: 'dist',
         format: 'esm',
         sourcemap: true,
+        entryFileNames: '[name]/index.esm.js',
       },
+      {
+        dir: 'dist',
+        format: 'cjs',
+        sourcemap: true,
+        entryFileNames: '[name]/index.js',
+      }
     ],
     plugins: [
       alias({
         entries: [
-          { find: 'components', replacement: './src/components' }
+          { find: 'components', replacement: './src/components' },
+          { find: 'eco-unp/ui', replacement: './src/components/ui' },
+          { find: 'eco-unp/form', replacement: './src/components/form' }
         ]
       }),
       resolve(),
       commonjs(),
       typescript({
-        tsconfig: './tsconfig.ui.json'
+        tsconfig: './tsconfig.json',
+        outDir: './dist',
+        declaration: true,
+        declarationDir: './dist/types',
+        jsx: 'react',
+        allowSyntheticDefaultImports: true,
       }),
       postcss({
         extensions: ['.css'],
       }),
+      del({ targets: 'dist/*', runOnce: true }),
     ],
     external: ['react', 'react-dom'],
     onwarn: (warning, warn) => {
@@ -41,42 +56,5 @@ export default [
       }
       warn(warning);
     },
-  },
-  {
-    input: 'src/components/form/index.tsx',
-    output: [
-      {
-        file: 'dist/form/index.js',
-        format: 'cjs',
-        sourcemap: true,
-      },
-      {
-        file: 'dist/form/index.esm.js',
-        format: 'esm',
-        sourcemap: true,
-      },
-    ],
-    plugins: [
-      alias({
-        entries: [
-          { find: 'components', replacement: './src/components' }
-        ]
-      }),
-      resolve(),
-      commonjs(),
-      typescript({
-        tsconfig: './tsconfig.form.json'
-      }),
-      postcss({
-        extensions: ['.css'],
-      }),
-    ],
-    external: ['react', 'react-dom'],
-    onwarn: (warning, warn) => {
-      if (warning.code === 'MODULE_LEVEL_DIRECTIVE') {
-        return;
-      }
-      warn(warning);
-    },
-  },
+  }
 ];

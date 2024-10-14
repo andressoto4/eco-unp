@@ -1,23 +1,18 @@
 {
   "name": "eco-unp",
-  "version": "0.0.261",
-  "main": "dist/ui/index.js",
-  "module": "dist/ui/index.esm.js",
-  "types": "dist/ui/types/index.d.ts",
+  "version": "0.0.370",
+  "main": "dist/index.js",
+  "types": "module",
   "exports": {
-    ".": {
-      "import": "./dist/ui/index.esm.js",
-      "require": "./dist/ui/index.js"
-    },
     "./ui": {
       "import": "./dist/ui/index.esm.js",
       "require": "./dist/ui/index.js",
-      "types": "./dist/ui/types/index.d.ts"
+      "types": "./dist/types/components/ui/index.d.ts"
     },
     "./form": {
       "import": "./dist/form/index.esm.js",
       "require": "./dist/form/index.js",
-      "types": "./dist/form/types/index.d.ts"
+      "types": "./dist/types/components/form/index.d.ts"
     }
   },
   "scripts": {
@@ -28,26 +23,35 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "dependencies": {
-    "@types/react": "^18.3.11",
-    "@types/react-dom": "^18.3.0",
-    "bootstrap": "^5.3.3",
+  "peerDependencies": {
     "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
     "react-bootstrap": "^2.10.5",
-    "react-dom": "^18.3.1",
+    "react-google-recaptcha": "^3.1.0",
     "react-icons": "^5.3.0",
-    "tslib": "^2.7.0",
-    "typescript": "^5.6.2"
+    "react-toastify": "^10.0.5",
+    "sweetalert2": "^11.14.3",
+    "tslib": "^2.7.0"
   },
   "devDependencies": {
     "@rollup/plugin-alias": "^5.1.1",
     "@rollup/plugin-commonjs": "^28.0.0",
     "@rollup/plugin-node-resolve": "^15.3.0",
     "@rollup/plugin-typescript": "^12.1.0",
+    "@rollup/plugin-url": "^8.0.2",
     "@types/bootstrap": "^5.2.10",
+    "@types/react": "^18.3.11",
     "@types/react-bootstrap": "^0.32.37",
+    "@types/react-dom": "^18.3.1",
+    "@types/react-google-recaptcha": "^2.1.9",
+    "@types/rollup-plugin-url": "^3.0.5",
     "rollup": "^4.24.0",
     "rollup-plugin-delete": "^2.1.0",
-    "rollup-plugin-postcss": "^4.0.2"
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-url": "^3.0.1",
+    "typescript": "^5.6.3"
   }
 }

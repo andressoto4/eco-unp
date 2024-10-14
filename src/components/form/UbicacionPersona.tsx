@@ -3,7 +3,7 @@ import React, { useState, useContext, ChangeEvent, useEffect, RefObject } from '
 import Pais from './componentes/Pais';
 import Departamento from './componentes/Departamento';
 import Municipio from './componentes/Municipio';
-import { IdPaisUbicacionContext, IdDepartamentoUbicacionContext, IdMunicipioUbicacionContext, IdZonaUbicacionContext } from './contextos/UbicacionContexto';
+import { IdPaisUbicacionContext, IdDepartamentoUbicacionContext, IdMunicipioUbicacionContext, IdZonaUbicacionContext } from './contextos/UbicacionContext';
 import { Col, FormCheck, FormControl, FormGroup, FormLabel, FormSelect, Row, Collapse, Container, Card, CardBody } from 'react-bootstrap';
 import { FaTree, FaTreeCity } from 'react-icons/fa6';
 
@@ -51,6 +51,7 @@ const iconStyle = {
 
 
 const Ubicacion: React.FC<UbicacionProps> = ({ paisDomicilioRef, departamentoDomicilioRef, municipioDomicilioRef }) => {
+    
     const [idPaisUbicacion, setIdPaisUbicacion] = useState<string>('0');
     const [idDepartamentoUbicacion, setIdDepartamentoUbicacion] = useState<string>('0');
 

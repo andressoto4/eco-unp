@@ -1,9 +1,0 @@
-{
-  "extends": "./tsconfig.base.json",
-  "compilerOptions": {
-    "declaration": true,
-    "outDir": "./dist/form",
-    "declarationDir": "./dist/form/types"
-  },
-  "include": ["src/components/form"]
-}

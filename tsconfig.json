@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "ESNext",
+    "jsx": "react",
+    "strict": true,
+    "moduleResolution": "bundler",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./",
+    "paths": {
+      "eco-unp/*": ["node_modules/eco-unp/dist/types/*"],
+      "eco-unp/ui/*": ["node_modules/eco-unp/dist/types/components/ui/*"],
+      "eco-unp/form/*": ["node_modules/eco-unp/dist/types/components/form/*"]
+    }
+  },
+  "include": [
+    "src",
+    "declarations.d.ts"
+  ]
+}
