@@ -1,151 +1,39 @@
-import React, { useEffect, useRef, useState } from "react";
-
+// Importación de React y otros módulos necesarios
+import React from "react";
 import { FaFacebook, FaInstagram, FaXTwitter, FaYoutube, FaPhoneFlip, FaHeadphones } from 'react-icons/fa6';
 import { MdError } from "react-icons/md";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Row, Col, Container, Button, Alert } from "react-bootstrap";
-import { toast } from "react-toastify";
 
-import { IngresoProvider } from './providers/IngresoProvider'
+// Importaciones de componentes propios
+import { IngresoProvider } from './providers/IngresoProvider';
+import { InicioSesionHook } from "./hooks/InicioSesionHook";
 import { LogosUnp } from "./componentes/Logos";
 import { Recaptcha } from "./componentes/Recaptcha";
 import { Usuario, Contrasegna, RedesSociales } from "./componentes/Login";
 
+// Importación de archivos de estilos CSS
 import './styles/Bootstrap.css'
-import './styles/IniciarSesionStyles.css'
+import './styles/InicioSesionStyles.css'
 
+// Definición de tipos para las propiedades del formulario de ingreso
 interface FormIngresoProps {
-    children?: React.ReactNode;
+    children?: React.ReactNode;        // Propiedad opcional que permite pasar nodos React como hijos
 }
 
+// Definición del componente funcional Login que acepta las propiedades definidas en FormIngresoProps
 const Login: React.FC<FormIngresoProps> = (props) => {
 
-    const usuarioRef = useRef<HTMLInputElement>(null);
-    const contrasegnaRef = useRef<HTMLInputElement>(null);
+    // Referencias para usuario, contraseña y reCAPTCHA
+    const usuarioRef = React.useRef<HTMLInputElement>(null);   
+    const contrasegnaRef = React.useRef<HTMLInputElement>(null);       
+    const recaptchaRef = React.useRef<ReCAPTCHA>(null);             
 
-    const recaptchaRef = useRef<ReCAPTCHA>(null);
-    const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
+    const maxAttempts = 3;           // Número máximo de intentos permitidos
+    const blockTime = 10;           // Tiempo de bloqueo en segundos
 
-    const [validated, setValidated] = useState<boolean>(false);
-    const [error, setError] = useState<string | null>(null);
-
-    const [attempts, setAttempts] = useState<number>(0);
-    const [isBlocked, setIsBlocked] = useState<boolean>(false);
-    const [timer, setTimer] = useState<number>(0);
-    const maxAttempts = 3;
-    const blockTime = 10;
-
-    const handleRecaptchaChange = (token: string | null) => {
-        setRecaptchaToken(token);
-    };
-
-    useEffect(() => {
-        let interval: NodeJS.Timeout | undefined;
-
-        if (isBlocked && timer > 0) {
-            interval = setInterval(() => {
-                setTimer((prevTimer) => prevTimer - 1);
-            }, 1000);
-        }
-
-        if (timer === 0 && isBlocked) {
-            setIsBlocked(false);
-            setAttempts(0);
-        }
-
-        return () => {
-            if (interval) clearInterval(interval);
-        };
-    }, [isBlocked, timer]);
-
-
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const form = e.currentTarget;
-
-        if (attempts < maxAttempts) {
-            if (!form.checkValidity()) {
-                e.stopPropagation();
-                setValidated(false);
-                return;
-            }
-
-            if (!recaptchaToken) {
-                e.stopPropagation();
-                setError("Por favor, completa el reCAPTCHA");
-                return;
-            }
-
-            setError(null);
-            setValidated(true);
-
-            const username = usuarioRef.current?.value;
-            const password = contrasegnaRef.current?.value;
-
-            try {
-                const response = await toast.promise(
-                    fetch("http://localhost:8000/login/", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify({ username, password, recaptchaToken }),
-                    }),
-                    {
-                        pending: "Ingresando...",
-                        success: {
-                            render({ data }) {
-                                if (data.status === 200) {
-                                    setTimeout(() => {
-                                        window.location.href = "./";
-                                    }, 1000);
-                                    return "Ingreso exitoso!";
-                                }
-                                throw new Error("Error en la respuesta del servidor");
-                            },
-                        },
-                        error: {
-                            render() {
-                                setValidated(false);
-                                setError("Error durante el ingreso");
-                                return "Error durante el ingreso.";
-                            },
-                        },
-                    },
-                    {
-                        position: "bottom-right",
-                        className: "foo-bar",
-                        hideProgressBar: true,
-                    }
-                );
-
-                if (response.ok) {
-                    const data = await response.json();
-                    if (data.access_token) {
-                        localStorage.setItem("access_token", data.access_token);
-                    } else {
-                        setAttempts((prevAttempts) => prevAttempts + 1);
-                        setError("Credenciales incorrectas");
-                    }
-                } else {
-                    const errorData = await response.json();
-                    setError(errorData.error || "Error en el servidor");
-                    recaptchaRef.current?.reset();
-                }
-            } catch (error) {
-                setError("Error de conexión");
-                recaptchaRef.current?.reset();
-            } finally {
-                if (attempts + 1 >= maxAttempts) {
-                    setIsBlocked(true);
-                    setTimer(blockTime);
-                }
-            }
-        } else {
-            setIsBlocked(true);
-            setTimer(blockTime);
-        }
-    };
+    // Uso del hook personalizado InicioSesionHook para manejar el estado del formulario de inicio de sesión
+    const { recaptchaToken, validated, error, attempts, isBlocked, timer, handleRecaptchaChange, handleSubmit } = InicioSesionHook(maxAttempts, blockTime);
 
     // ------ > Renderizado
     return (
@@ -179,16 +67,16 @@ const Login: React.FC<FormIngresoProps> = (props) => {
 
                         {/* Formulario de inicio de sesión */}
                         <Row className="justify-content-md-center mx-0">
-                            <form method="POST" noValidate className={validated ? "was-validated" : ""} onSubmit={handleSubmit}>
+                            <form method="POST" noValidate className={validated ? "was-validated" : ""} onSubmit={(e) => handleSubmit(e, usuarioRef, contrasegnaRef, recaptchaRef)}>
 
                                 {/* Campos de usuario y contraseña */}
-                                <Col xl={12} md={9} xs={12} className="justify-content-center">
+                                <Col xl={12} md={12} xs={12} className="justify-content-center">
                                     <Usuario usuarioRef={usuarioRef} />
                                     <Contrasegna contrasegnaRef={contrasegnaRef} />
                                 </Col>
 
                                 {/* Botón de enviar */}
-                                <Col xl={12} md={9} xs={12} className="d-grid gap-2">
+                                <Col xl={12} md={12} xs={12} className="d-grid gap-2">
                                     <Button variant="secondary" disabled={isBlocked} type="submit">
                                         {isBlocked ? `Espera ${timer} segundos` : "Ingresar"}
                                     </Button>
@@ -253,15 +141,14 @@ const IniciarSesion: React.FC = () => {
     // -----> Renderizado
     return (
 
-      // El componente IngresoProvider envuelve al componente Login
-      <IngresoProvider>
-        <Login />
-      </IngresoProvider>
-      
+        // El componente IngresoProvider envuelve al componente Login
+        <IngresoProvider>
+            <Login />
+        </IngresoProvider>
+
     );
-    
-  };
-  
-  // Exporta el componente IniciarSesion para su uso en otros archivos
-  export default IniciarSesion;
-  
+
+};
+
+// Exporta el componente IniciarSesion para su uso en otros archivos
+export default IniciarSesion;

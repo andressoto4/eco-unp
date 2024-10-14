@@ -39,7 +39,7 @@ const Usuario: React.FC<UsuarioProps> = ({ usuarioRef }) => {
 
     return (
         <React.Fragment>
-            <Col xl={12} md={9} xs={12}>
+            <Col xl={12} md={12} xs={12}>
 
                 <FormGroup className="mb-3" controlId="validacionUsuario">
                     <FormLabel>Usuario</FormLabel>
@@ -103,7 +103,7 @@ const Contrasegna: React.FC<ContrasegnaProps> = ({ contrasegnaRef }) => {
 
     return (
         <React.Fragment>
-            <Col xl={12} md={9} xs={12}>
+            <Col xl={12} md={12} xs={12}>
                 <FormGroup className="mb-3" controlId="validacionContrasegna">
                     <FormLabel>Contraseña</FormLabel>
                     <InputGroup>
