@@ -1,8 +1,8 @@
 'use strict';
 
-var InicioSesion = require('../InicioSesion-_eNeb1_p.js');
+var InicioSesion = require('../InicioSesion-5Wz81BfK.js');
 require('react');
-require('../tslib.es6-nvSHNY1m.js');
+require('../index-Cc0BvkhQ.js');
 require('react-dom');
 
 

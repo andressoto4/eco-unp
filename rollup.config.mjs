@@ -4,6 +4,7 @@ import typescript from '@rollup/plugin-typescript';
 import postcss from 'rollup-plugin-postcss';
 import alias from '@rollup/plugin-alias';
 import del from 'rollup-plugin-delete';
+import tsconfigPaths from 'rollup-plugin-tsconfig-paths';
 
 export default [
   {
@@ -29,9 +30,9 @@ export default [
     plugins: [
       alias({
         entries: [
-          { find: 'components', replacement: './src/components' },
-          { find: 'eco-unp/ui', replacement: './src/components/ui' },
-          { find: 'eco-unp/form', replacement: './src/components/form' }
+          { find: 'eco-unp', replacement: 'src/components' },
+          { find: 'eco-unp/ui', replacement: 'src/components/ui' },
+          { find: 'eco-unp/form', replacement: 'src/components/form' }
         ]
       }),
       resolve(),
@@ -48,6 +49,7 @@ export default [
         extensions: ['.css'],
       }),
       del({ targets: 'dist/*', runOnce: true }),
+      tsconfigPaths()
     ],
     external: ['react', 'react-dom'],
     onwarn: (warning, warn) => {

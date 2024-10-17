@@ -1,9 +1,9 @@
 'use strict';
 
-var InicioSesion = require('../InicioSesion-_eNeb1_p.js');
-var UbicacionPersona = require('../UbicacionPersona-D9vVFakH.js');
+var InicioSesion = require('../InicioSesion-5Wz81BfK.js');
+var UbicacionPersona = require('../UbicacionPersona-DK-StWhV.js');
 require('react');
-require('../tslib.es6-nvSHNY1m.js');
+require('../index-Cc0BvkhQ.js');
 require('react-dom');
 
 
