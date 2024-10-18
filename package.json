@@ -11,7 +11,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "copy": "copyfiles -u 1 src/ui/styles/**/* dist",
-    "pack": "mkdir temp-dist && copyfiles -u 1 dist/**/* temp-dist && copy package.json temp-dist && cd temp-dist && npm pack && move *.tgz .. && cd .. && rmdir /S /Q temp-dist"
+    "pack": "mkdir temp-dist && copyfiles -u 1 dist/**/* temp-dist && copy package.json temp-dist && cd temp-dist && npm pack && move *.tgz .. && cd .. && rmdir /S /Q temp-dist",
+    "publish": "mkdir temp-dist && copyfiles -u 1 dist/**/* temp-dist && copy package.json temp-dist && cd temp-dist && npm publish && cd .. && rmdir /S /Q temp-dist"
   },
   "peerDependencies": {
     "react": "^18.3.1",
