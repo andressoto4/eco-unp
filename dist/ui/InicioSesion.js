@@ -1,5 +1,5 @@
 // Importación de React y otros módulos necesarios
-import React, { useEffect } from "react";
+import React from "react";
 import { FaFacebook, FaInstagram, FaXTwitter, FaYoutube, FaPhoneFlip, FaHeadphones, FaFileContract, FaKey, } from "react-icons/fa6";
 import { Row, Col, Container, Button } from "react-bootstrap";
 // Importaciones de componentes propios
@@ -11,7 +11,6 @@ import { Usuario, Contrasegna, RedesSociales } from "./components/Login";
 // Importación de archivos de estilos CSS
 import "./styles/Bootstrap.css";
 import "./styles/InicioSesionStyles.css";
-import { useAuth } from "./providers/AutenticacionProvider";
 // Definición del componente funcional Login que acepta las propiedades definidas en FormIngresoProps
 var Login = function (props) {
     // Referencias para usuario, contraseña y reCAPTCHA
@@ -64,20 +63,9 @@ var Login = function (props) {
 };
 // Definición del componente funcional IniciarSesion
 var IniciarSesion = function () {
-    var token = useAuth().token;
-    var isAuthenticated = Boolean(token);
-    useEffect(function () {
-        if (isAuthenticated) {
-            console.log("ingreso");
-        }
-    }, [isAuthenticated]);
-    // -----> Renderizado
-    return (React.createElement(React.Fragment, null, isAuthenticated ? (
-    // Se redirige o se muestra la vista cuando el usuario ya esta logeado y tiene su token
-    React.createElement("div", null)) : (
-    // El componente IngresoProvider envuelve al componente Login
-    React.createElement(IngresoProvider, null,
-        React.createElement(Login, null)))));
+    return (React.createElement(React.Fragment, null,
+        React.createElement(IngresoProvider, null,
+            React.createElement(Login, null))));
 };
 // Exporta el componente IniciarSesion para su uso en otros archivos
 export default IniciarSesion;

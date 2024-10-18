@@ -3,24 +3,15 @@
   "version": "0.0.374",
   "main": "index.js",
   "types": "index.d.ts",
-  "files": [
-    "dist/*"
-  ],
   "exports": {
-    ".": {
-      "types": "./index.d.ts",
-      "require": "./index.js"
-    },
-    "./ui": {
-      "require": "./ui/index.js"
-    },
-    "./form": {
-      "require": "./form/index.js"
-    }
+    "./ui": "./ui/index.js",
+    "./form": "./form/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc",
+    "copy": "copyfiles -u 1 src/ui/styles/**/* dist",
+    "pack": "mkdir temp-dist && copyfiles -u 1 dist/**/* temp-dist && copy package.json temp-dist && cd temp-dist && npm pack && move *.tgz .. && cd .. && rmdir /S /Q temp-dist"
   },
   "peerDependencies": {
     "react": "^18.3.1",
@@ -40,6 +31,7 @@
     "@types/react": "^18.3.11",
     "@types/react-bootstrap": "^0.32.37",
     "@types/react-dom": "^18.3.1",
-    "@types/react-google-recaptcha": "^2.1.9"
+    "@types/react-google-recaptcha": "^2.1.9",
+    "copyfiles": "^2.4.1"
   }
 }

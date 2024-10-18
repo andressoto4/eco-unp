@@ -24,7 +24,6 @@ import { Usuario, Contrasegna, RedesSociales } from "./components/Login";
 import "./styles/Bootstrap.css";
 import "./styles/InicioSesionStyles.css";
 
-import { useAuth } from "./providers/AutenticacionProvider";
 
 // Definición de tipos para las propiedades del formulario de ingreso
 interface FormIngresoProps {
@@ -214,28 +213,12 @@ const Login: React.FC<FormIngresoProps> = (props) => {
 
 // Definición del componente funcional IniciarSesion
 const IniciarSesion: React.FC = () => {
-  const { token } = useAuth();
-
-  const isAuthenticated: boolean = Boolean(token);
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      console.log("ingreso");
-    }
-  }, [isAuthenticated]);
-  // -----> Renderizado
   return (
     <>
-      {/*Se valida si existe un token en localstorage para autenticacion*/}
-      {isAuthenticated ? (
-        // Se redirige o se muestra la vista cuando el usuario ya esta logeado y tiene su token
-        <div></div>
-      ) : (
-        // El componente IngresoProvider envuelve al componente Login
-        <IngresoProvider>
-          <Login />
-        </IngresoProvider>
-      )}
+      {/* El componente IngresoProvider envuelve al componente Login */}
+      <IngresoProvider>
+        <Login />
+      </IngresoProvider>
     </>
   );
 };
