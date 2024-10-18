@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../index.ts"],"names":[],"mappings":"AAAA,cAAc,MAAM,CAAA;AACpB,cAAc,QAAQ,CAAA","sourcesContent":["export * from './ui'\r\nexport * from './form'"]}

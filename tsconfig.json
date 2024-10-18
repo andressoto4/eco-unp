@@ -1,25 +1,22 @@
 {
   "compilerOptions": {
-    "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "Preserve",
-    "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "baseUrl": ".",
-    "paths": {
-      "eco-unp/ui/*": ["ui/*"],
-      "eco-unp/form/*": ["form/*"],
-      "types/*": ["dist/types/*"]
-    }
+    "target": "ES5",                               
+    "module": "ESNext",                            
+    "lib": ["DOM", "ESNext"],                      
+    "declaration": true,                           // Esto habilita la generación de archivos de declaración
+    "declarationMap": true,                        // Esto habilita la generación de mapas de declaración
+    "outDir": "dist",                             
+    "strict": true,                               
+    "jsx": "react",                               
+    "moduleResolution": "node",                    
+    "esModuleInterop": true,                       
+    "skipLibCheck": true,                          
+    "forceConsistentCasingInFileNames": true,     
+    "noEmit": false,                              
+    "isolatedModules": true,                       
+    "sourceMap": true,                             
+    "resolveJsonModule": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["src"],                              
+  "exclude": ["node_modules", "dist"]              
 }
