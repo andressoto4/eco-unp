@@ -1,15 +1,27 @@
 {
   "name": "eco-unp",
   "version": "0.0.374",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "files": [
+    "dist/*"
+  ],
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "require": "./index.js"
+    },
+    "./ui": {
+      "require": "./ui/index.js"
+    },
+    "./form": {
+      "require": "./form/index.js"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
   },
-  "files": [
-    "dist"
-  ],
   "peerDependencies": {
     "react": "^18.3.1",
     "react-dom": "^18.3.1"

@@ -1,0 +1,1 @@
+{"version":3,"file":"IngresoProvider.d.ts","sourceRoot":"","sources":["../../../src/ui/providers/IngresoProvider.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAC;AAI1B,UAAU,oBAAoB;IAC5B,QAAQ,EAAE,KAAK,CAAC,SAAS,CAAC;CAC3B;AAGD,QAAA,MAAM,eAAe,EAAE,KAAK,CAAC,EAAE,CAAC,oBAAoB,CAuBnD,CAAC;AAGF,OAAO,EAAE,eAAe,EAAE,CAAC"}

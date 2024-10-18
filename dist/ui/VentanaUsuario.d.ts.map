@@ -1,0 +1,1 @@
+{"version":3,"file":"VentanaUsuario.d.ts","sourceRoot":"","sources":["../../src/ui/VentanaUsuario.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAC;AAO1B,OAAO,sCAAsC,CAAC;AAE9C,UAAU,mBAAmB;IACzB,QAAQ,CAAC,EAAE,KAAK,CAAC,YAAY,GAAG,KAAK,CAAC,YAAY,EAAE,CAAC;CACxD;AAED,QAAA,MAAM,cAAc,EAAE,KAAK,CAAC,EAAE,CAAC,mBAAmB,CA6CjD,CAAC;AAEF,eAAe,cAAc,CAAC"}

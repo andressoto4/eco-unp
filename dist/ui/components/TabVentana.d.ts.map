@@ -1,0 +1,1 @@
+{"version":3,"file":"TabVentana.d.ts","sourceRoot":"","sources":["../../../src/ui/components/TabVentana.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAC;AAG1B,OAAO,sCAAsC,CAAC;AAE9C,UAAU,eAAe;IACrB,QAAQ,EAAE,MAAM,CAAC;IACjB,KAAK,EAAE,MAAM,CAAC;IACd,QAAQ,EAAE,KAAK,CAAC,SAAS,CAAC;CAC7B;AAED,QAAA,MAAM,UAAU,EAAE,KAAK,CAAC,EAAE,CAAC,eAAe,CAMzC,CAAC;AAEF,eAAe,UAAU,CAAC"}

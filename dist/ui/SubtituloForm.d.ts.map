@@ -1,0 +1,1 @@
+{"version":3,"file":"SubtituloForm.d.ts","sourceRoot":"","sources":["../../src/ui/SubtituloForm.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAC;AAG1B,OAAO,EAAE,QAAQ,EAAE,MAAM,aAAa,CAAC;AAEvC,UAAU,kBAAkB;IACxB,SAAS,EAAE,MAAM,CAAC;IAClB,IAAI,EAAE,QAAQ,CAAA;CACjB;AAYD,QAAA,MAAM,aAAa,EAAE,KAAK,CAAC,EAAE,CAAC,kBAAkB,CAa/C,CAAC;AAEF,eAAe,aAAa,CAAC"}
