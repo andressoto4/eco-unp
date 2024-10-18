@@ -9,9 +9,9 @@ import tsconfigPaths from 'rollup-plugin-tsconfig-paths';
 export default [
   {
     input: {
-      index: 'src/index.tsx',
-      ui: 'src/components/ui/index.tsx',
-      form: 'src/components/form/index.tsx',
+      index: 'index.ts',
+      ui: 'ui/index.tsx',
+      form: 'form/index.tsx',
     },
     output: [
       {
@@ -30,9 +30,8 @@ export default [
     plugins: [
       alias({
         entries: [
-          { find: 'eco-unp', replacement: 'src/components' },
-          { find: 'eco-unp/ui', replacement: 'src/components/ui' },
-          { find: 'eco-unp/form', replacement: 'src/components/form' }
+          { find: 'eco-unp/ui', replacement: 'ui' },
+          { find: 'eco-unp/form', replacement: 'form' }
         ]
       }),
       resolve(),

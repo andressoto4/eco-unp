@@ -7,7 +7,7 @@
     "strict": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "Preserve",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
@@ -15,9 +15,9 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "eco-unp/*": ["src/components/*"],
-      "eco-unp/ui/*": ["src/components/ui/*"],
-      "eco-unp/form/*": ["src/components/form/*"]
+      "eco-unp/ui/*": ["ui/*"],
+      "eco-unp/form/*": ["form/*"],
+      "types/*": ["dist/types/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
