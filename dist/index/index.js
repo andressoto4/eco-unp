@@ -1,19 +1,19 @@
 'use strict';
 
-var InicioSesion = require('../InicioSesion-B_F7v0n0.js');
-var UbicacionPersona = require('../UbicacionPersona-DK-StWhV.js');
+var VentanaUsuario = require('../VentanaUsuario-CDCr2J4S.js');
+var UbicacionPersona = require('../UbicacionPersona-C-CfqwNi.js');
 require('react');
-require('../index-Cc0BvkhQ.js');
+require('../index-Bj-p1eEH.js');
 require('react-dom');
 
 
 
-exports.CardForm = InicioSesion.CardForm;
-exports.InicioSesion = InicioSesion.IniciarSesion;
-exports.SubtituloForm = InicioSesion.SubtituloForm;
-exports.TabVentana = InicioSesion.TabVentana;
-exports.VentanaLienzo = InicioSesion.VentanaLienzo;
-exports.VentanaUsuario = InicioSesion.VentanaUsuario;
+exports.CardForm = VentanaUsuario.CardForm;
+exports.InicioSesion = VentanaUsuario.IniciarSesion;
+exports.SubtituloForm = VentanaUsuario.SubtituloForm;
+exports.TabVentana = VentanaUsuario.TabVentana;
+exports.VentanaLienzo = VentanaUsuario.VentanaLienzo;
+exports.VentanaUsuario = VentanaUsuario.VentanaUsuario;
 exports.ContactoPersona = UbicacionPersona.ContactoPersona;
 exports.NombrePersona = UbicacionPersona.NombrePersona;
 exports.Nuip = UbicacionPersona.Nuip;

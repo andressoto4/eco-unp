@@ -1,0 +1,1 @@
+{"version":3,"file":"AutenticacionType.js","sourceRoot":"","sources":["../../../ui/types/AutenticacionType.tsx"],"names":[],"mappings":"","sourcesContent":["export interface AutenticacionContextType {\r\n  token: string | null;\r\n  setToken: (newToken: string | null) => void;\r\n}"]}

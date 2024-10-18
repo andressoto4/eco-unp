@@ -1,5 +1,8 @@
 import React from "react";
-import { IdUsuarioContext, IdContrasegnaContext } from "../contexs/IngresoContex";
+import {
+  IdUsuarioContext,
+  IdContrasegnaContext,
+} from "../context/IngresoContex";
 
 // Crear un provider combinado para ingreso
 interface IngresoProviderProps {
@@ -8,7 +11,6 @@ interface IngresoProviderProps {
 
 // Declaración del componente IngresoProvider que acepta las propiedades definidas en IngresoProviderProps
 const IngresoProvider: React.FC<IngresoProviderProps> = ({ children }) => {
-
   // Estado para manejar el ID del usuario
   const [idUsuario, setIdUsuario] = React.useState<string>("");
 
@@ -17,19 +19,16 @@ const IngresoProvider: React.FC<IngresoProviderProps> = ({ children }) => {
 
   // ------> Renderizado
   return (
-
     // Proveedor del contexto de ID del usuario
     <IdUsuarioContext.Provider value={{ idUsuario, setIdUsuario }}>
-
       {/* Proveedor del contexto de ID de la contraseña */}
-      <IdContrasegnaContext.Provider value={{ idContrasegna, setIdContrasegna }}>
+      <IdContrasegnaContext.Provider
+        value={{ idContrasegna, setIdContrasegna }}
+      >
         {children}
       </IdContrasegnaContext.Provider>
-
     </IdUsuarioContext.Provider>
-
   );
-
 };
 
 // Exporta el componente IngresoProvider para su uso en otros archivos
