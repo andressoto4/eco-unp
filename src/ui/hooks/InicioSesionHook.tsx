@@ -4,6 +4,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { InicioSesionRequest } from "../request/InicisoSesionRequest";
 
 export const InicioSesionHook = (maxAttempts: number, blockTime: number) => {
+
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [validated, setValidated] = useState<boolean>(false);
   const [attempts, setAttempts] = useState<number>(0);
@@ -53,7 +54,7 @@ export const InicioSesionHook = (maxAttempts: number, blockTime: number) => {
 
         e.stopPropagation();
         setValidated(false);
-        toast.error("Formulario no valido", {
+        toast.error("Por favor, ingrese un usuario y una contraseña válida.", {
           position: "top-right",
           className: "foo-bar",
           hideProgressBar: true,
@@ -97,7 +98,11 @@ export const InicioSesionHook = (maxAttempts: number, blockTime: number) => {
                   setAttempts((prevAttempts) => prevAttempts + 1);
                   recaptchaRef.current?.reset();
                   // Typescript genera un error de tipos pero es por la libreria de toastify no esta hecha en ts
-                  return data.message;
+                  // return data.message;
+                  if (typeof data === 'object' && data !== null && 'message' in data) {
+                    return (data as { message: string }).message;
+                  }
+                  return 'Error: data no tiene el formato esperado';
                 },
               },
             },
