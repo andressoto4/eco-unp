@@ -9,10 +9,11 @@ import {
 } from "react-bootstrap";
 
 interface NuipProps {
+  method: string;
   attach?: boolean;
 }
 
-const Nuip: React.FC<NuipProps> = ({ attach = false }) => {
+const Nuip: React.FC<NuipProps> = ({ method, attach = false }) => {
   return (
     <React.Fragment>
       <Row>
@@ -22,13 +23,17 @@ const Nuip: React.FC<NuipProps> = ({ attach = false }) => {
             <FormLabel>
               Tipo de identificación <span className="text-danger">*</span>
             </FormLabel>
-            <FormSelect>
-              <option value="0">Seleccione...</option>
-              <option value="1">Tarjeta de identidad</option>
-              <option value="2">Cédula de ciudadanía</option>
-              <option value="3">Cédula de Extranjería</option>
-              <option value="4">Pasaporte</option>
-            </FormSelect>
+            {method === 'GET' ?
+              <FormControl type="text" disabled />
+              :
+              <FormSelect>
+                <option value="0">Seleccione...</option>
+                <option value="1">Tarjeta de identidad</option>
+                <option value="2">Cédula de ciudadanía</option>
+                <option value="3">Cédula de Extranjería</option>
+                <option value="4">Pasaporte</option>
+              </FormSelect>
+            }
           </FormGroup>
         </Col>
 
@@ -38,7 +43,7 @@ const Nuip: React.FC<NuipProps> = ({ attach = false }) => {
             <FormLabel>
               Número de identificación <span className="text-danger">*</span>
             </FormLabel>
-            <FormControl type="text" minLength={6} maxLength={15} required />
+            <FormControl type="text" minLength={6} maxLength={15} disabled={method === 'GET' ? true : false} required />
           </FormGroup>
         </Col>
 
@@ -51,6 +56,7 @@ const Nuip: React.FC<NuipProps> = ({ attach = false }) => {
             <FormControl
               type="date"
               max={new Date().toISOString().split("T")[0]}
+              disabled={method === 'GET' ? true : false}
               required
             />
           </FormGroup>

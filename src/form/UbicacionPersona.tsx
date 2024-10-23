@@ -38,12 +38,14 @@ interface ZonaData {
 interface ZonaProps {
   onChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
   zonaDomicilioRef?: React.RefObject<HTMLSelectElement>;
+  method: string;
 }
 
 interface UbicacionProps {
   paisDomicilioRef?: React.RefObject<HTMLSelectElement>;
   departamentoDomicilioRef?: React.RefObject<HTMLSelectElement>;
   municipioDomicilioRef?: React.RefObject<HTMLSelectElement>;
+  method: string;
 }
 
 interface DireccionUrbanaProps {
@@ -62,6 +64,10 @@ interface DireccionRuralProps {
   centroPobladoRef?: RefObject<HTMLInputElement>;
 }
 
+interface UbicacionPersonaProps {
+  method: string;
+}
+
 const subtituloStyle = {
   fontColor: "#303d50s",
   fontSize: "1.1rem",
@@ -76,6 +82,7 @@ const Ubicacion: React.FC<UbicacionProps> = ({
   paisDomicilioRef,
   departamentoDomicilioRef,
   municipioDomicilioRef,
+  method
 }) => {
   const [idPaisUbicacion, setIdPaisUbicacion] = useState<string>("0");
   const [idDepartamentoUbicacion, setIdDepartamentoUbicacion] =
@@ -113,6 +120,7 @@ const Ubicacion: React.FC<UbicacionProps> = ({
           paisRef={paisDomicilioRef}
           idPaisUbicacion={Number(idPaisUbicacion)}
           onChange={handlePaisChange}
+          method={method}
         />
       </Col>
       <Col lg={3} md={6} xs={12}>
@@ -120,6 +128,7 @@ const Ubicacion: React.FC<UbicacionProps> = ({
           departamentoRef={departamentoDomicilioRef}
           idPais={Number(idPaisUbicacion)}
           onChange={handleDepartamentoChange}
+          method={method}
         />
       </Col>
       <Col lg={3} md={6} xs={12}>
@@ -127,13 +136,14 @@ const Ubicacion: React.FC<UbicacionProps> = ({
           municipioRef={municipioDomicilioRef}
           idDepartamento={Number(idDepartamentoUbicacion)}
           onChange={handleMunicipioGet}
+          method={method}
         />
       </Col>
     </React.Fragment>
   );
 };
 
-const Zona: React.FC<ZonaProps> = ({ onChange, zonaDomicilioRef }) => {
+const Zona: React.FC<ZonaProps> = ({ onChange, zonaDomicilioRef, method }) => {
   const [zonas, setZonas] = useState<ZonaData[]>([]);
   const [zonaSeleccionada, setZonaSeleccionada] = useState<string>("0");
   const { setID: setIdZonaUbicacion } = useContext(IdZonaUbicacionContext);
@@ -180,19 +190,23 @@ const Zona: React.FC<ZonaProps> = ({ onChange, zonaDomicilioRef }) => {
         <FormLabel>
           Zona <span className="text-danger">*</span>
         </FormLabel>
-        <FormSelect
-          ref={zonaDomicilioRef}
-          value={zonaSeleccionada}
-          onChange={handleZonaChange}
-          required
-        >
-          <option value="0">Seleccione una zona</option>
-          {zonas.map((zona) => (
-            <option key={zona.id_zubicacion} value={zona.id_zubicacion}>
-              {zona.nombre_zubicacion}
-            </option>
-          ))}
-        </FormSelect>
+        {method === 'GET' ?
+          <FormControl type="text" disabled />
+          :
+          <FormSelect
+            ref={zonaDomicilioRef}
+            value={zonaSeleccionada}
+            onChange={handleZonaChange}
+            required
+          >
+            <option value="0">Seleccione una zona</option>
+            {zonas.map((zona) => (
+              <option key={zona.id_zubicacion} value={zona.id_zubicacion}>
+                {zona.nombre_zubicacion}
+              </option>
+            ))}
+          </FormSelect>
+        }
       </Col>
     </React.Fragment>
   );
@@ -512,7 +526,7 @@ const DireccionRural: React.FC<DireccionRuralProps> = ({
   );
 };
 
-const UbicacionPersona = () => {
+const UbicacionPersona: React.FC<UbicacionPersonaProps> = ({ method }) => {
   const [zona, setZona] = useState("");
 
   const handleZonaChange = (e: {
@@ -523,44 +537,63 @@ const UbicacionPersona = () => {
 
   return (
     <Row>
-      <Ubicacion />
-      <Zona onChange={handleZonaChange} />
+      <Ubicacion method={method} />
+      <Zona onChange={handleZonaChange} method={method} />
 
-      <Collapse in={zona === "1"}>
-        <Container className="pb-0 mb-0 bg-section">
-          <Card className="border-light-subtle rounded-3">
-            <CardBody>
-              <Row className="mb-1 mt-1">
-                <Col className="col-auto pe-1">
-                  <FaTreeCity style={iconStyle} />
-                </Col>
-                <Col className="ps-1 col-auto align-self-center">
-                  <p style={subtituloStyle}>Dirección urbana</p>
-                </Col>
-              </Row>
-              <DireccionUrbana />
-            </CardBody>
-          </Card>
-        </Container>
-      </Collapse>
+      {method === 'GET' ?
+        <Row>
+          <Col lg={5} xs={12}>
+            <FormGroup className="mb-3">
+              <FormLabel>Dirección / Ubicación</FormLabel>
+              <FormControl type="text" disabled={method === 'GET' ? true : false} />
+            </FormGroup>
+          </Col>
+          <Col lg={7} xs={12}>
+            <FormGroup className="mb-3">
+              <FormLabel>Indicaciones</FormLabel>
+              <FormControl type="text" disabled={method === 'GET' ? true : false} />
+            </FormGroup>
+          </Col>
+        </Row>
+        :
+        <>
+          <Collapse in={zona === "1"}>
+            <Container className="pb-0 mb-0 bg-section">
+              <Card className="border-light-subtle rounded-3">
+                <CardBody>
+                  <Row className="mb-1 mt-1">
+                    <Col className="col-auto pe-1">
+                      <FaTreeCity style={iconStyle} />
+                    </Col>
+                    <Col className="ps-1 col-auto align-self-center">
+                      <p style={subtituloStyle}>Dirección urbana</p>
+                    </Col>
+                  </Row>
+                  <DireccionUrbana />
+                </CardBody>
+              </Card>
+            </Container>
+          </Collapse>
 
-      <Collapse in={zona === "2"}>
-        <Container className="pb-0 mb-0 bg-section">
-          <Card className="border-light-subtle rounded-3">
-            <CardBody>
-              <Row className="mb-1 mt-1">
-                <Col className="col-auto pe-1">
-                  <FaTree style={iconStyle} />
-                </Col>
-                <Col className="ps-1 col-auto align-self-center">
-                  <p style={subtituloStyle}>Dirección Rural</p>
-                </Col>
-              </Row>
-              <DireccionRural />
-            </CardBody>
-          </Card>
-        </Container>
-      </Collapse>
+          <Collapse in={zona === "2"}>
+            <Container className="pb-0 mb-0 bg-section">
+              <Card className="border-light-subtle rounded-3">
+                <CardBody>
+                  <Row className="mb-1 mt-1">
+                    <Col className="col-auto pe-1">
+                      <FaTree style={iconStyle} />
+                    </Col>
+                    <Col className="ps-1 col-auto align-self-center">
+                      <p style={subtituloStyle}>Dirección Rural</p>
+                    </Col>
+                  </Row>
+                  <DireccionRural />
+                </CardBody>
+              </Card>
+            </Container>
+          </Collapse>
+        </>
+      }
     </Row>
   );
 };

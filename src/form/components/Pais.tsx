@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
-import { FormGroup, FormLabel, FormSelect } from "react-bootstrap";
+import { FormControl, FormGroup, FormLabel, FormSelect } from "react-bootstrap";
 
 interface PaisData {
   id_pais: number;
@@ -10,9 +10,10 @@ interface PaisProps {
   idPaisUbicacion?: number;
   onChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
   paisRef?: React.RefObject<HTMLSelectElement>;
+  method?: string;
 }
 
-const Pais: React.FC<PaisProps> = ({ idPaisUbicacion, onChange, paisRef }) => {
+const Pais: React.FC<PaisProps> = ({ idPaisUbicacion, onChange, paisRef, method }) => {
   const [paises, setPaises] = useState<PaisData[]>([]);
   const [paisSeleccionado, setPaisSeleccionado] = useState<string>("0");
 
@@ -61,20 +62,24 @@ const Pais: React.FC<PaisProps> = ({ idPaisUbicacion, onChange, paisRef }) => {
       <FormLabel>
         País <span className="text-danger">*</span>
       </FormLabel>
-      <FormSelect
-        ref={paisRef}
-        value={paisSeleccionado}
-        onChange={handlePaisChange}
-      >
-        <option value="0" disabled>
-          Seleccione...
-        </option>
-        {paises.map((pais) => (
-          <option key={pais.id_pais} value={pais.id_pais}>
-            {pais.nombre_pais}
+      {method === 'GET' ?
+        <FormControl type="text" disabled />
+        :
+        <FormSelect
+          ref={paisRef}
+          value={paisSeleccionado}
+          onChange={handlePaisChange}
+        >
+          <option value="0" disabled>
+            Seleccione...
           </option>
-        ))}
-      </FormSelect>
+          {paises.map((pais) => (
+            <option key={pais.id_pais} value={pais.id_pais}>
+              {pais.nombre_pais}
+            </option>
+          ))}
+        </FormSelect>
+      }
     </FormGroup>
   );
 };

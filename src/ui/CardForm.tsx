@@ -1,14 +1,19 @@
 import React from "react";
 import { Row, Button, Col, Container, Card, CardHeader, CardTitle, CardBody } from 'react-bootstrap';
+import { FaPen } from "react-icons/fa6";
 
 interface CardFormProps {
     children?: React.ReactElement | React.ReactElement[];
     titulo: string;
     method: string;
+    canEdit?: boolean;
 };
 
-const bgUnpStyle = {
+const headerStyle = {
+    display: 'flex',
+    justifyContent: 'space-between',
     backgroundColor: '#303d50',
+    alignItems: 'center'
 };
 
 const borderUnpStyle = {
@@ -24,22 +29,31 @@ const btnSendStyle = {
     width: '100px'
 }
 
+const btnEditStyle = {
+  fontSize: '1.5rem',
+  cursor: 'pointer'
+}
+
 const handleEnviarClick = () => {
     alert('Estamos trabajando... paciencia :)')
 };
 
-const CardForm: React.FC<CardFormProps> = ({ children, method, titulo }) => {
+const CardForm: React.FC<CardFormProps> = ({ children, method, titulo, canEdit = false }) => {
     return (
-        <Container className="py-5">
+        <Container>
+
             <Row className="justify-content-center">
-                <Col xl={10} md={11} xs={12}>
 
-                    <Card style={borderUnpStyle} className="border-0 rounded-3 shadow">
+                <Col>
 
-                        <CardHeader style={bgUnpStyle} className="text-center text-light rounded-3 rounded-bottom-0 py-4">
-                            <CardTitle className="px-xs-0 px-md-1 pd-lg-2">
-                                <h4>{titulo}</h4>
-                            </CardTitle>
+                    <Card style={borderUnpStyle} className="border-0 rounded-3 shadow my-3">
+
+                        <CardHeader style={headerStyle} className="text-center text-light rounded-3 rounded-bottom-0">
+                            <h5 className="my-3">{titulo}</h5>
+                            {canEdit && 
+                            <div style={{ border: '1px solid', borderRadius: '50%', padding: '10px' }}>
+                                <FaPen style={btnEditStyle} />
+                            </div>}
                         </CardHeader>
 
                         <CardBody className="px-4">
@@ -47,11 +61,13 @@ const CardForm: React.FC<CardFormProps> = ({ children, method, titulo }) => {
 
                                 {children}
 
-                                <Row className="d-flex justify-content-end me-0">
-                                    <Button style={btnSendStyle} onClick={handleEnviarClick}>
-                                        Enviar
-                                    </Button>
-                                </Row>
+                                {method !== 'GET' &&
+                                    <Row className="d-flex justify-content-end me-0">
+                                        <Button style={btnSendStyle} onClick={handleEnviarClick}>
+                                            Enviar
+                                        </Button>
+                                    </Row>
+                                }
 
                             </form>
                         </CardBody>
@@ -59,7 +75,9 @@ const CardForm: React.FC<CardFormProps> = ({ children, method, titulo }) => {
                     </Card>
 
                 </Col>
+
             </Row>
+
         </Container>
     );
 };

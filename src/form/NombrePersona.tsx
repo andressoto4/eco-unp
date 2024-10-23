@@ -1,7 +1,11 @@
 import React from "react";
 import { Col, FormGroup, FormLabel, FormControl, Row } from "react-bootstrap";
 
-const NombrePersona = () => {
+interface NombrePersonaProps {
+  method: string;
+};
+
+const NombrePersona: React.FC<NombrePersonaProps> = ({ method }) => {
   return (
     <Row>
       {/* Input de Primer nombre */}
@@ -10,7 +14,7 @@ const NombrePersona = () => {
           <FormLabel>
             Primer nombre <span className="text-danger">*</span>
           </FormLabel>
-          <FormControl type="text" maxLength={20} required />
+          <FormControl type="text" maxLength={20} disabled={method === 'GET' ? true : false} required />
         </FormGroup>
       </Col>
 
@@ -18,7 +22,7 @@ const NombrePersona = () => {
       <Col lg={3} md={6} xs={12}>
         <FormGroup className="mb-3">
           <FormLabel>Segundo nombre</FormLabel>
-          <FormControl type="text" maxLength={50} />
+          <FormControl type="text" maxLength={50} disabled={method === 'GET' ? true : false} />
         </FormGroup>
       </Col>
 
@@ -28,7 +32,7 @@ const NombrePersona = () => {
           <FormLabel>
             Primer apellido <span className="text-danger">*</span>
           </FormLabel>
-          <FormControl type="text" maxLength={50} required />
+          <FormControl type="text" maxLength={50} disabled={method === 'GET' ? true : false} required />
         </FormGroup>
       </Col>
 
@@ -36,7 +40,7 @@ const NombrePersona = () => {
       <Col lg={3} md={6} xs={12}>
         <FormGroup className="mb-3">
           <FormLabel>Segundo apellido</FormLabel>
-          <FormControl type="text" maxLength={50} />
+          <FormControl type="text" maxLength={50} disabled={method === 'GET' ? true : false} />
         </FormGroup>
       </Col>
     </Row>

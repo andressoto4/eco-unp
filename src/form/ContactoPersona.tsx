@@ -1,7 +1,11 @@
 import React from "react";
 import { Col, FormGroup, FormLabel, FormControl, Row } from "react-bootstrap";
 
-const ContactoPersona = () => {
+interface ContactoPersonaProps {
+  method: string;
+};
+
+const ContactoPersona: React.FC<ContactoPersonaProps> = ({ method }) => {
   return (
     <Row>
       {/* Input de Celular uno */}
@@ -14,6 +18,7 @@ const ContactoPersona = () => {
             minLength={10}
             maxLength={10}
             placeholder="Ej: 300 200 2000"
+            disabled={method === 'GET' ? true : false}
             required
           />
         </FormGroup>
@@ -27,6 +32,7 @@ const ContactoPersona = () => {
             minLength={10}
             maxLength={10}
             placeholder="Ej: 300 200 2000"
+            disabled={method === 'GET' ? true : false}
           />
         </FormGroup>
       </Col>
@@ -39,6 +45,7 @@ const ContactoPersona = () => {
             minLength={10}
             maxLength={10}
             placeholder="Ej: 600 700 7000"
+            disabled={method === 'GET' ? true : false}
           />
         </FormGroup>
       </Col>
@@ -49,7 +56,12 @@ const ContactoPersona = () => {
           <FormLabel>
             Correo electrónico <span className="text-danger">*</span>
           </FormLabel>
-          <FormControl type="email" maxLength={100} required />
+          <FormControl
+            type="email"
+            maxLength={100}
+            disabled={method === 'GET' ? true : false}
+            required
+          />
         </FormGroup>
       </Col>
     </Row>

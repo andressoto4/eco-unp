@@ -1,5 +1,5 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
-import { FormGroup, FormLabel, FormSelect } from "react-bootstrap";
+import { FormControl, FormGroup, FormLabel, FormSelect } from "react-bootstrap";
 
 interface MunicipioData {
   id_municipio: number;
@@ -10,12 +10,14 @@ interface MunicipioProps {
   idDepartamento: number;
   onChange?: (event: ChangeEvent<HTMLSelectElement>) => void;
   municipioRef?: React.RefObject<HTMLSelectElement>;
+  method?: string;
 }
 
 const Municipio: React.FC<MunicipioProps> = ({
   idDepartamento,
   onChange,
   municipioRef,
+  method
 }) => {
   const [municipios, setMunicipios] = useState<MunicipioData[]>([]);
   const [municipioSeleccionado, setMunicipioSeleccionado] =
@@ -67,22 +69,26 @@ const Municipio: React.FC<MunicipioProps> = ({
       <FormLabel>
         Municipio / Ciudad <span className="text-danger">*</span>
       </FormLabel>
-      <FormSelect
-        ref={municipioRef}
-        value={municipioSeleccionado}
-        onChange={handleMunicipioChange}
-        disabled={idDepartamento === 0}
-        style={idDepartamento === 0 ? selectDisabledStyle : {}}
-      >
-        <option value="0" disabled>
-          Seleccione...
-        </option>
-        {municipios.map((municipio) => (
-          <option key={municipio.id_municipio} value={municipio.id_municipio}>
-            {municipio.nombre_municipio}
+      {method === 'GET' ?
+        <FormControl type="text" disabled />
+        :
+        <FormSelect
+          ref={municipioRef}
+          value={municipioSeleccionado}
+          onChange={handleMunicipioChange}
+          disabled={idDepartamento === 0}
+          style={idDepartamento === 0 ? selectDisabledStyle : {}}
+        >
+          <option value="0" disabled>
+            Seleccione...
           </option>
-        ))}
-      </FormSelect>
+          {municipios.map((municipio) => (
+            <option key={municipio.id_municipio} value={municipio.id_municipio}>
+              {municipio.nombre_municipio}
+            </option>
+          ))}
+        </FormSelect>
+      }
     </FormGroup>
   );
 };
