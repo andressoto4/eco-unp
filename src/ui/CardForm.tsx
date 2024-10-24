@@ -6,7 +6,9 @@ interface CardFormProps {
     children?: React.ReactElement | React.ReactElement[];
     titulo: string;
     method: string;
+    changeMethod?: React.Dispatch<React.SetStateAction<string>>;
     canEdit?: boolean;
+    hasBody?: boolean;
 };
 
 const headerStyle = {
@@ -29,48 +31,79 @@ const btnSendStyle = {
     width: '100px'
 }
 
+const divBtnEditStyle = {
+    border: '1px solid',
+    borderRadius: '50%',
+    padding: '10px',
+    cursor: 'pointer'
+}
+
 const btnEditStyle = {
-  fontSize: '1.5rem',
-  cursor: 'pointer'
+    fontSize: '1.5rem',
+}
+
+const handleEditClick = (method: string, changeMethod: React.Dispatch<React.SetStateAction<string>>) => {
+    if (changeMethod) {
+        changeMethod(method == 'GET' ? 'PUT' : 'GET')
+    }
 }
 
 const handleEnviarClick = () => {
     alert('Estamos trabajando... paciencia :)')
 };
 
-const CardForm: React.FC<CardFormProps> = ({ children, method, titulo, canEdit = false }) => {
+const CardForm: React.FC<CardFormProps> = ({ children, method, changeMethod = () => { }, titulo, canEdit = false, hasBody = true }) => {
     return (
-        <Container>
+        <Container className="my-3">
 
             <Row className="justify-content-center">
 
-                <Col>
+                <Col xl={9} lg={11}>
 
                     <Card style={borderUnpStyle} className="border-0 rounded-3 shadow my-3">
 
-                        <CardHeader style={headerStyle} className="text-center text-light rounded-3 rounded-bottom-0">
+                        <CardHeader style={headerStyle} className="text-start text-light rounded-3 rounded-bottom-0">
                             <h5 className="my-3">{titulo}</h5>
-                            {canEdit && 
-                            <div style={{ border: '1px solid', borderRadius: '50%', padding: '10px' }}>
-                                <FaPen style={btnEditStyle} />
-                            </div>}
+                            {canEdit &&
+                                <div style={divBtnEditStyle} onClick={() => handleEditClick(method, changeMethod)}>
+                                    <FaPen style={btnEditStyle} />
+                                </div>}
                         </CardHeader>
 
-                        <CardBody className="px-4">
+                        {hasBody ?
+                            <CardBody>
+                                <form method={method}>
+
+                                    {children}
+
+                                    {method !== 'GET' &&
+                                        <Row className="d-flex justify-content-end me-0">
+                                            <Button style={btnSendStyle} onClick={handleEnviarClick}>
+                                                Enviar
+                                            </Button>
+                                        </Row>
+                                    }
+
+                                </form>
+                            </CardBody>
+                            :
                             <form method={method}>
 
                                 {children}
 
-                                {method !== 'GET' &&
-                                    <Row className="d-flex justify-content-end me-0">
-                                        <Button style={btnSendStyle} onClick={handleEnviarClick}>
-                                            Enviar
-                                        </Button>
-                                    </Row>
-                                }
+                                <CardBody>
+                                    {method !== 'GET' &&
+                                        <Row className="d-flex justify-content-end me-0">
+                                            <Button style={btnSendStyle} onClick={handleEnviarClick}>
+                                                Enviar
+                                            </Button>
+                                        </Row>
+                                    }
+                                </CardBody>
 
                             </form>
-                        </CardBody>
+                        }
+
 
                     </Card>
 

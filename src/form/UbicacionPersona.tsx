@@ -186,7 +186,7 @@ const Zona: React.FC<ZonaProps> = ({ onChange, zonaDomicilioRef, method }) => {
 
   return (
     <React.Fragment>
-      <Col md={3} xs={12} className="mb-3">
+      <Col lg={3} md={6} xs={12} className="mb-3">
         <FormLabel>
           Zona <span className="text-danger">*</span>
         </FormLabel>
@@ -541,7 +541,7 @@ const UbicacionPersona: React.FC<UbicacionPersonaProps> = ({ method }) => {
       <Zona onChange={handleZonaChange} method={method} />
 
       {method === 'GET' ?
-        <Row>
+        <>
           <Col lg={5} xs={12}>
             <FormGroup className="mb-3">
               <FormLabel>Dirección / Ubicación</FormLabel>
@@ -554,7 +554,7 @@ const UbicacionPersona: React.FC<UbicacionPersonaProps> = ({ method }) => {
               <FormControl type="text" disabled={method === 'GET' ? true : false} />
             </FormGroup>
           </Col>
-        </Row>
+        </>
         :
         <>
           <Collapse in={zona === "1"}>

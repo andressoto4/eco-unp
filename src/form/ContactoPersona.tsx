@@ -17,7 +17,7 @@ const ContactoPersona: React.FC<ContactoPersonaProps> = ({ method }) => {
           <FormControl
             minLength={10}
             maxLength={10}
-            placeholder="Ej: 300 200 2000"
+            placeholder={method === 'GET' ? '' : 'Ej: 300 200 2000'}
             disabled={method === 'GET' ? true : false}
             required
           />
@@ -31,7 +31,7 @@ const ContactoPersona: React.FC<ContactoPersonaProps> = ({ method }) => {
           <FormControl
             minLength={10}
             maxLength={10}
-            placeholder="Ej: 300 200 2000"
+            placeholder={method === 'GET' ? '' : 'Ej: 300 200 2000'}
             disabled={method === 'GET' ? true : false}
           />
         </FormGroup>
@@ -44,7 +44,7 @@ const ContactoPersona: React.FC<ContactoPersonaProps> = ({ method }) => {
           <FormControl
             minLength={10}
             maxLength={10}
-            placeholder="Ej: 600 700 7000"
+            placeholder={method === 'GET' ? '' : 'Ej: 300 200 2000'}
             disabled={method === 'GET' ? true : false}
           />
         </FormGroup>
