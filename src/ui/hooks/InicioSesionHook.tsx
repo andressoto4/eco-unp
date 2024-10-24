@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import ReCAPTCHA from "react-google-recaptcha";
-import { InicioSesionRequest } from "../request/InicisoSesionRequest";
+import { InicioSesionRequest } from "../request/InicioSesionRequest";
 
 export const InicioSesionHook = (maxAttempts: number, blockTime: number) => {
 
@@ -97,8 +97,6 @@ export const InicioSesionHook = (maxAttempts: number, blockTime: number) => {
                   setValidated(false);
                   setAttempts((prevAttempts) => prevAttempts + 1);
                   recaptchaRef.current?.reset();
-                  // Typescript genera un error de tipos pero es por la libreria de toastify no esta hecha en ts
-                  // return data.message;
                   if (typeof data === 'object' && data !== null && 'message' in data) {
                     return (data as { message: string }).message;
                   }

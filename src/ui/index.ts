@@ -5,3 +5,6 @@ export { default as InicioSesion } from './InicioSesion';
 export { default as SubtituloForm } from './SubtituloForm';
 export { default as TabVentana } from './components/TabVentana';
 export { default as Encabezado } from './Encabezado';
+export { default as Buscador } from "./components/Buscador";
+export { default as CustomModal } from "./components/Modal";
+export { default as CustomeTable } from "./components/Tabla";
