@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify";
 import ReCAPTCHA from "react-google-recaptcha";
-import { InicioSesionRequest } from "../request/InicioSesionRequest";
+import { InicioSesionRequest } from "../request/InicioSesion";
 
 export const InicioSesionHook = (maxAttempts: number, blockTime: number) => {
-
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [validated, setValidated] = useState<boolean>(false);
   const [attempts, setAttempts] = useState<number>(0);
   const [isBlocked, setIsBlocked] = useState<boolean>(false);
   const [timer, setTimer] = useState<number>(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     let interval: NodeJS.Timeout | undefined;
@@ -54,7 +55,7 @@ export const InicioSesionHook = (maxAttempts: number, blockTime: number) => {
 
         e.stopPropagation();
         setValidated(false);
-        toast.error("Por favor, ingrese un usuario y una contraseña válida.", {
+        toast.error("Formulario no valido", {
           position: "top-right",
           className: "foo-bar",
           hideProgressBar: true,
@@ -86,8 +87,10 @@ export const InicioSesionHook = (maxAttempts: number, blockTime: number) => {
               success: {
                 render({ data }) {
                   localStorage.setItem("access_token", data.access_token);
+                  localStorage.setItem("access_url", data.access_url);
+                  localStorage.setItem("access_user", data.access_user);
                   setTimeout(() => {
-                    window.location.href = "./";
+                    navigate(data.access_url);
                   }, 1000);
                   return "¡Ingreso exitoso!";
                 },

@@ -91,7 +91,7 @@ const CustomeTable: React.FC<TableProps> = ({
       <div
         className="table-scroll"
         onScroll={handleScroll}
-        style={{ maxHeight: "72vh", overflowY: "auto" }}
+        style={{ position: 'relative', maxHeight: "72vh", overflowY: "auto" }}
       >
         <Table striped hover responsive>
           <thead>

@@ -22,7 +22,7 @@ import { Usuario, Contrasegna, RedesSociales } from "./components/Login";
 
 // Importación de archivos de estilos CSS
 import "./styles/Bootstrap.css";
-import "./styles/InicioSesion.css";
+import "./styles/InicioSesionStyles.css";
 
 // Definición de tipos para las propiedades del formulario de ingreso
 interface FormIngresoProps {
@@ -55,7 +55,7 @@ const Login: React.FC<FormIngresoProps> = (props) => {
     // Div que permite al login a ubicarse en el centro
     <div className="login-container">
       {/* Contenedor principal con sombra y ancho máximo de 720px */}
-      <Container style={{ maxWidth: "705px", maxHeight: "580px" }}>
+      <Container style={{ maxWidth: "720px", maxHeight: "600px" }}>
         {/* Fila para la presentación y los inputs de inicio de sesión */}
         <Row className="justify-content-md-center border-0 rounded shadow">
           {/* Columna izquierda con fondo de formulario y borde redondeado */}
@@ -78,7 +78,7 @@ const Login: React.FC<FormIngresoProps> = (props) => {
               />
               <p
                 className="text-center mt-4"
-                style={{ color: "#E8E8E8", fontWeight: "500" }}
+                style={{ color: "#BFBFBF", fontWeight: "500" }}
               >
                 Integrar la gestión, potencializar los resultados
               </p>
@@ -101,7 +101,7 @@ const Login: React.FC<FormIngresoProps> = (props) => {
             </Row>
 
             {/* Formulario de inicio de sesión */}
-            <Row className="justify-content-center mx-0">
+            <Row className="justify-content-md-center mx-0">
               <form
                 method="POST"
                 noValidate
@@ -135,12 +135,17 @@ const Login: React.FC<FormIngresoProps> = (props) => {
               </form>
             </Row>
 
+            {/* Mensaje de error */}
+            {/* {error && (
+              <Alert className="mt-3" key={"danger"} variant={"danger"}>
+                <MdError /> {error}
+              </Alert>
+            )} */}
           </Col>
         </Row>
 
         {/* Fila para incluir las redes sociales de la entidad y la política de datos */}
         <Row className="mt-2 d-flex justify-content-beetween">
-          
           {/* Columna para los iconos botones de redes sociales */}
           <Col className="ms-0 d-flex justify-content-start">
             <RedesSociales
@@ -197,7 +202,6 @@ const Login: React.FC<FormIngresoProps> = (props) => {
             />
           </Col>
         </Row>
-
       </Container>
 
       <br />
@@ -218,6 +222,6 @@ const InicioSesion: React.FC = () => {
     </div>
   );
 };
-
+ 
 // Exporta el componente IniciarSesion para su uso en otros archivos
 export default InicioSesion;

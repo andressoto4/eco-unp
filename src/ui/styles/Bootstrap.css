@@ -21,6 +21,14 @@
     color: #303d50;
 }
 
+input[type="text"][disabled] {
+    background-color: #ffffff;
+}
+
+select:disabled {
+    background-color: #ffffff;
+}
+
 .nav-link.active {
     background-color: #f7f7f7 !important;
 }
