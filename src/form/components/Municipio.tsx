@@ -17,7 +17,7 @@ const Municipio: React.FC<MunicipioProps> = ({
   idDepartamento,
   onChange,
   municipioRef,
-  method
+  method,
 }) => {
   const [municipios, setMunicipios] = useState<MunicipioData[]>([]);
   const [municipioSeleccionado, setMunicipioSeleccionado] =
@@ -30,7 +30,7 @@ const Municipio: React.FC<MunicipioProps> = ({
 
     const obtenerMunicipio = async () => {
       try {
-        const url = `${process.env.REACT_APP_API_ENDPOINT}/municipio/?departamento=${idDepartamento}`;
+        const url = `http://localhost:8000/sistema/municipio/?departamento=${idDepartamento}`;
         const response = await fetch(url);
         if (response.ok) {
           const data: MunicipioData[] = await response.json();
@@ -69,9 +69,9 @@ const Municipio: React.FC<MunicipioProps> = ({
       <FormLabel>
         Municipio / Ciudad <span className="text-danger">*</span>
       </FormLabel>
-      {method === 'GET' ?
+      {method === "GET" ? (
         <FormControl type="text" disabled />
-        :
+      ) : (
         <FormSelect
           ref={municipioRef}
           value={municipioSeleccionado}
@@ -88,7 +88,7 @@ const Municipio: React.FC<MunicipioProps> = ({
             </option>
           ))}
         </FormSelect>
-      }
+      )}
     </FormGroup>
   );
 };

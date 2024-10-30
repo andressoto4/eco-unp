@@ -1,20 +1,4 @@
-import React, {
-  useState,
-  useContext,
-  ChangeEvent,
-  useEffect,
-  RefObject,
-} from "react";
-
-import Pais from "./components/Pais";
-import Departamento from "./components/Departamento";
-import Municipio from "./components/Municipio";
-import {
-  IdPaisUbicacionContext,
-  IdDepartamentoUbicacionContext,
-  IdMunicipioUbicacionContext,
-  IdZonaUbicacionContext,
-} from "./contexts/UbicacionContext";
+import React, { useState, ChangeEvent, useEffect, RefObject } from "react";
 import {
   Col,
   FormCheck,
@@ -29,6 +13,19 @@ import {
   CardBody,
 } from "react-bootstrap";
 import { FaTree, FaTreeCity } from "react-icons/fa6";
+
+import Pais from "./components/Pais";
+import Departamento from "./components/Departamento";
+import Municipio from "./components/Municipio";
+
+import {
+  useIdPais,
+  useIdDepartamento,
+  useIdMunicipio,
+  useIdZona,
+  useIdDireccionUrbana,
+  useIdDireccionRural,
+} from "./hooks/UbicacionHook";
 
 interface ZonaData {
   id_zubicacion: number;
@@ -78,63 +75,46 @@ const iconStyle = {
   fontSize: "1.25rem",
 };
 
-const Ubicacion: React.FC<UbicacionProps> = ({
-  paisDomicilioRef,
-  departamentoDomicilioRef,
-  municipioDomicilioRef,
-  method
-}) => {
-  const [idPaisUbicacion, setIdPaisUbicacion] = useState<string>("0");
-  const [idDepartamentoUbicacion, setIdDepartamentoUbicacion] =
-    useState<string>("0");
-
-  const { setID: setIDPaisUbicacion } = useContext(IdPaisUbicacionContext);
-  const { setID: setIDDepartamentoUbicacion } = useContext(
-    IdDepartamentoUbicacionContext
-  );
-  const { setID: setIDMunicipioUbicacion } = useContext(
-    IdMunicipioUbicacionContext
-  );
-  const { setID: setIdZonaUbicacion } = useContext(IdZonaUbicacionContext);
+const Ubicacion: React.FC<UbicacionProps> = ({ method }) => {
+  const { idPais: pais, setIdPais: setPais } = useIdPais();
+  const { idDepartamento: departamento, setIdDepartamento: setDepartamento } =
+    useIdDepartamento();
+  const { idMunicipio: municipio, setIdMunicipio: setMunicipio } =
+    useIdMunicipio();
 
   const handlePaisChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setIdPaisUbicacion(event.target.value);
-    setIDPaisUbicacion(event.target.value);
-    setIdDepartamentoUbicacion("0");
+    setPais(event.target.value);
+    setDepartamento("0");
   };
 
   const handleDepartamentoChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setIdDepartamentoUbicacion(event.target.value);
-    setIDDepartamentoUbicacion(event.target.value);
-    setIDMunicipioUbicacion("0");
+    setDepartamento(event.target.value);
+    setMunicipio("0");
   };
 
   const handleMunicipioGet = (event: ChangeEvent<HTMLSelectElement>) => {
-    setIDMunicipioUbicacion(event.target.value);
+    setMunicipio(event.target.value);
   };
 
   return (
     <React.Fragment>
       <Col lg={3} md={6} xs={12}>
         <Pais
-          paisRef={paisDomicilioRef}
-          idPaisUbicacion={Number(idPaisUbicacion)}
+          idPaisUbicacion={Number(pais)}
           onChange={handlePaisChange}
           method={method}
         />
       </Col>
       <Col lg={3} md={6} xs={12}>
         <Departamento
-          departamentoRef={departamentoDomicilioRef}
-          idPais={Number(idPaisUbicacion)}
+          idPais={Number(pais)}
           onChange={handleDepartamentoChange}
           method={method}
         />
       </Col>
       <Col lg={3} md={6} xs={12}>
         <Municipio
-          municipioRef={municipioDomicilioRef}
-          idDepartamento={Number(idDepartamentoUbicacion)}
+          idDepartamento={Number(departamento)}
           onChange={handleMunicipioGet}
           method={method}
         />
@@ -143,17 +123,14 @@ const Ubicacion: React.FC<UbicacionProps> = ({
   );
 };
 
-const Zona: React.FC<ZonaProps> = ({ onChange, zonaDomicilioRef, method }) => {
+const Zona: React.FC<ZonaProps> = ({ method }) => {
   const [zonas, setZonas] = useState<ZonaData[]>([]);
-  const [zonaSeleccionada, setZonaSeleccionada] = useState<string>("0");
-  const { setID: setIdZonaUbicacion } = useContext(IdZonaUbicacionContext);
+  const { idZona: zona, setIdZona: setZona } = useIdZona();
 
   useEffect(() => {
     const obtenerZonas = async () => {
       try {
-        const response = await fetch(
-          `${process.env.REACT_APP_API_ENDPOINT}/zona/`
-        );
+        const response = await fetch(`http://localhost:8000/sistema/zona/`);
         if (response.ok) {
           const data: ZonaData[] = await response.json();
           setZonas(data);
@@ -174,15 +151,8 @@ const Zona: React.FC<ZonaProps> = ({ onChange, zonaDomicilioRef, method }) => {
   }, []);
 
   useEffect(() => {
-    setIdZonaUbicacion(zonaSeleccionada);
-  }, [zonaSeleccionada, setIdZonaUbicacion]);
-
-  const handleZonaChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    setZonaSeleccionada(event.target.value);
-    if (onChange) {
-      onChange(event);
-    }
-  };
+    setZona(zona);
+  }, [zona, setZona]);
 
   return (
     <React.Fragment>
@@ -190,13 +160,12 @@ const Zona: React.FC<ZonaProps> = ({ onChange, zonaDomicilioRef, method }) => {
         <FormLabel>
           Zona <span className="text-danger">*</span>
         </FormLabel>
-        {method === 'GET' ?
+        {method === "GET" ? (
           <FormControl type="text" disabled />
-          :
+        ) : (
           <FormSelect
-            ref={zonaDomicilioRef}
-            value={zonaSeleccionada}
-            onChange={handleZonaChange}
+            value={zona}
+            onChange={(e) => setZona(e.target.value)}
             required
           >
             <option value="0">Seleccione una zona</option>
@@ -206,35 +175,43 @@ const Zona: React.FC<ZonaProps> = ({ onChange, zonaDomicilioRef, method }) => {
               </option>
             ))}
           </FormSelect>
-        }
+        )}
       </Col>
     </React.Fragment>
   );
 };
 
-const DireccionUrbana: React.FC<DireccionUrbanaProps> = ({
-  contentType,
-  viaPrincipalRef,
-  numeroViaPrincipalRef,
-  numeroViaSecundariaRef,
-  numeroPlacaRef,
-  nombreBarrioRef,
-}) => {
-  const [contentTypeId, setContentTypeId] = useState<string | null>(null);
-  const [nombreBarrio, setNombreBarrio] = useState<string>("");
-  const [viaPrincipal, setViaPrincipal] = useState<string>("");
-  const [numeroViaPrincipal, setNumeroViaPrincipal] = useState<string>("");
-  const [letraPrincipal, setLetraPrincipal] = useState<string>("");
-  const [esBis, setEsBis] = useState<string>("");
-  const [cuadrantePrincipal, setCuadrantePrincipal] = useState<string>("");
-  const [numeroViaSecundaria, setNumeroViaSecundaria] = useState<string>("");
-  const [letraSecundaria, setLetraSecundaria] = useState<string>("");
-  const [cuadranteSecundario, setCuadranteSecundario] = useState<string>("");
-  const [numeroPlaca, setNumeroPlaca] = useState<string>("");
-  const [complemento, setComplemento] = useState<string>("");
+const DireccionUrbana: React.FC<DireccionUrbanaProps> = ({}) => {
+  const {
+    idNombreBarrio: nombreBarrio,
+    idViaPrincipal: viaPrincipal,
+    idNumeroViaPrincipal: numeroViaPrincipal,
+    idLetraPrincipal: letraPrincipal,
+    idEsBis: esBis,
+    idCuadrantePrincipal: cuadrantePrincipal,
+    idNumeroViaSecundaria: numeroViaSecundaria,
+    idLetraSecundaria: letraSecundaria,
+    idCuadranteSecundario: cuadranteSecundario,
+    idNumeroPlaca: numeroPlaca,
+    idComplemento: complemento,
+    idIndicacionDireccionU: indicacionDireccionU,
+    idResumenDireccionU: resumenDireccionU,
+    setIdNombreBarrio: setNombreBarrio,
+    setIdViaPrincipal: setViaPrincipal,
+    setIdNumeroViaPrincipal: setNumeroViaPrincipal,
+    setIdLetraPrincipal: setLetraPrincipal,
+    setIdEsBis: setEsBis,
+    setIdCuadrantePrincipal: setCuadrantePrincipal,
+    setIdNumeroViaSecundaria: setNumeroViaSecundaria,
+    setIdLetraSecundaria: setLetraSecundaria,
+    setIdCuadranteSecundario: setCuadranteSecundario,
+    setIdNumeroPlaca: setNumeroPlaca,
+    setIdComplemento: setComplemento,
+    setIdIndicacionDireccionU: setIndicacionDireccionU,
+    setIdResumenDireccionU: setResumenDireccionU
+  } = useIdDireccionUrbana();
+
   const [resumenDireccion, setResumenDireccion] = useState<string>("");
-  const [indicacionDireccion, setIndicacionDireccion] = useState<string>("");
-  const [isFirstRender, setIsFirstRender] = useState<boolean>(true);
 
   return (
     <Row>
@@ -244,7 +221,6 @@ const DireccionUrbana: React.FC<DireccionUrbanaProps> = ({
             Vía principal <span className="text-danger">*</span>
           </FormLabel>
           <FormSelect
-            ref={viaPrincipalRef}
             value={viaPrincipal}
             onChange={(e) => setViaPrincipal(e.target.value)}
             required
@@ -279,9 +255,9 @@ const DireccionUrbana: React.FC<DireccionUrbanaProps> = ({
             Número vía <span className="text-danger">*</span>
           </FormLabel>
           <FormControl
-            ref={numeroViaPrincipalRef}
             type="text"
             value={numeroViaPrincipal}
+            onChange={(e) => setNumeroViaPrincipal(e.target.value)}
             placeholder="Ej: 23"
             required
           />
@@ -293,13 +269,23 @@ const DireccionUrbana: React.FC<DireccionUrbanaProps> = ({
           <FormLabel>
             Letra <span className="text-danger"></span>
           </FormLabel>
-          <FormControl type="text" value={letraPrincipal} placeholder="Ej: A" />
+          <FormControl
+            type="text"
+            value={letraPrincipal}
+            onChange={(e) => setLetraPrincipal(e.target.value)}
+            placeholder="Ej: A"
+          />
         </FormGroup>
       </Col>
 
       <Col md={2} xs={12} className="align-self-end">
         <FormGroup className="mb-4">
-          <FormCheck type="checkbox" label="¿Es bis?" />
+          <FormCheck
+            type="checkbox"
+            label="¿Es bis?"
+            value={esBis}
+            onChange={(e) => setEsBis(e.target.value)}
+          />
         </FormGroup>
       </Col>
 
@@ -332,12 +318,7 @@ const DireccionUrbana: React.FC<DireccionUrbanaProps> = ({
           <FormLabel>
             Número uno <span className="text-danger">*</span>
           </FormLabel>
-          <FormControl
-            ref={numeroViaSecundariaRef}
-            type="text"
-            placeholder="Ej: 13"
-            required
-          />
+          <FormControl type="text" placeholder="Ej: 13" required />
         </FormGroup>
       </Col>
 
@@ -349,6 +330,7 @@ const DireccionUrbana: React.FC<DireccionUrbanaProps> = ({
           <FormControl
             type="text"
             value={letraSecundaria}
+            onChange={(e) => setLetraSecundaria(e.target.value)}
             placeholder="Ej: C"
           />
         </FormGroup>
@@ -384,9 +366,9 @@ const DireccionUrbana: React.FC<DireccionUrbanaProps> = ({
             Número dos <span className="text-danger">*</span>
           </FormLabel>
           <FormControl
-            ref={numeroPlacaRef}
             type="text"
             value={numeroPlaca}
+            onChange={(e) => setNumeroPlaca(e.target.value)}
             placeholder="Ej: 25"
             required
           />
@@ -401,6 +383,7 @@ const DireccionUrbana: React.FC<DireccionUrbanaProps> = ({
           <FormControl
             type="text"
             value={complemento}
+            onChange={(e) => setComplemento(e.target.value)}
             placeholder="Ej: Casa 3"
           />
         </FormGroup>
@@ -412,9 +395,9 @@ const DireccionUrbana: React.FC<DireccionUrbanaProps> = ({
             Barrio / Sector <span className="text-danger">*</span>
           </FormLabel>
           <FormControl
-            ref={nombreBarrioRef}
             type="text"
             value={nombreBarrio}
+            onChange={(e) => setNombreBarrio(e.target.value)}
             required
           />
         </FormGroup>
@@ -429,6 +412,7 @@ const DireccionUrbana: React.FC<DireccionUrbanaProps> = ({
             type="text"
             className="bg-body-secondary"
             value={resumenDireccion}
+            onChange={(e) => setResumenDireccion(e.target.value)}
             disabled
           />
         </FormGroup>
@@ -437,39 +421,30 @@ const DireccionUrbana: React.FC<DireccionUrbanaProps> = ({
       <Col md={12} xs={12}>
         <FormGroup className="mb-2">
           <FormLabel>Indicaciones del lugar de domicilio</FormLabel>
-          <FormControl type="text" value={indicacionDireccion} />
+          <FormControl
+            type="text"
+            value={indicacionDireccionU}
+            onChange={(e) => setIndicacionDireccionU(e.target.value)}
+          />
         </FormGroup>
       </Col>
     </Row>
   );
 };
 
-const DireccionRural: React.FC<DireccionRuralProps> = ({
-  contentType,
-  corregimientoRef,
-  veredaRef,
-  centroPobladoRef,
-}) => {
-  const [contentTypeId, setContentTypeId] = useState<string | null>(null);
-  const [corregimiento, setCorregimiento] = useState<string>("");
-  const [vereda, setVereda] = useState<string>("");
-  const [centroPoblado, setCentroPoblado] = useState<string>("");
+const DireccionRural: React.FC<DireccionRuralProps> = ({}) => {
+  const {
+    idCorregimiento: corregimiento,
+    idVereda: vereda,
+    idCentroPoblado: centroPoblado,
+    idIndicacionDireccionR: indicacionDireccionR,
+    setIdCorregimiento: setCorregimiento,
+    setIdVereda: setVereda,
+    setIdCentroPoblado: setCentroPoblado,
+    setIdIndicacionDireccionR: setIndicacionDireccionR,
+  } = useIdDireccionRural();
+
   const [resumenDireccion, setResumenDireccion] = useState<string>("");
-  const [indicacionDireccion, setIndicacionDireccion] = useState<string>("");
-
-  const handleTextChange = (
-    event: ChangeEvent<HTMLInputElement>,
-    setter: React.Dispatch<React.SetStateAction<string>>
-  ) => {
-    setter(event.target.value);
-  };
-
-  const handleAreaChange = (
-    event: ChangeEvent<HTMLInputElement>,
-    setter: React.Dispatch<React.SetStateAction<string>>
-  ) => {
-    setter(event.target.value);
-  };
 
   return (
     <Row>
@@ -479,9 +454,9 @@ const DireccionRural: React.FC<DireccionRuralProps> = ({
             Corregimiento <span className="text-danger"></span>
           </FormLabel>
           <FormControl
-            ref={corregimientoRef}
             type="text"
             value={corregimiento}
+            onChange={(e) => setCorregimiento(e.target.value)}
             maxLength={100}
           />
         </FormGroup>
@@ -493,9 +468,9 @@ const DireccionRural: React.FC<DireccionRuralProps> = ({
             Vereda <span className="text-danger">*</span>
           </FormLabel>
           <FormControl
-            ref={veredaRef}
             type="text"
             value={vereda}
+            onChange={(e) => setVereda(e.target.value)}
             maxLength={100}
             required
           />
@@ -508,9 +483,9 @@ const DireccionRural: React.FC<DireccionRuralProps> = ({
             Centro poblado <span className="text-danger"></span>
           </FormLabel>
           <FormControl
-            ref={centroPobladoRef}
             type="text"
             value={centroPoblado}
+            onChange={(e) => setCentroPoblado(e.target.value)}
             maxLength={100}
           />
         </FormGroup>
@@ -519,7 +494,11 @@ const DireccionRural: React.FC<DireccionRuralProps> = ({
       <Col md={12} xs={12}>
         <FormGroup className="mb-2">
           <FormLabel>Indicaciones del lugar de domicilio</FormLabel>
-          <FormControl type="text" value={indicacionDireccion} />
+          <FormControl
+            type="text"
+            value={indicacionDireccionR}
+            onChange={(e) => setIndicacionDireccionR(e.target.value)}
+          />
         </FormGroup>
       </Col>
     </Row>
@@ -527,35 +506,35 @@ const DireccionRural: React.FC<DireccionRuralProps> = ({
 };
 
 const UbicacionPersona: React.FC<UbicacionPersonaProps> = ({ method }) => {
-  const [zona, setZona] = useState("");
-
-  const handleZonaChange = (e: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setZona(e.target.value);
-  };
+  const { idZona: zona, setIdZona: setZona } = useIdZona();
 
   return (
     <Row>
       <Ubicacion method={method} />
-      <Zona onChange={handleZonaChange} method={method} />
+      <Zona method={method} />
 
-      {method === 'GET' ?
+      {method === "GET" ? (
         <>
           <Col lg={5} xs={12}>
             <FormGroup className="mb-3">
               <FormLabel>Dirección / Ubicación</FormLabel>
-              <FormControl type="text" disabled={method === 'GET' ? true : false} />
+              <FormControl
+                type="text"
+                disabled={method === "GET" ? true : false}
+              />
             </FormGroup>
           </Col>
           <Col lg={7} xs={12}>
             <FormGroup className="mb-3">
               <FormLabel>Indicaciones</FormLabel>
-              <FormControl type="text" disabled={method === 'GET' ? true : false} />
+              <FormControl
+                type="text"
+                disabled={method === "GET" ? true : false}
+              />
             </FormGroup>
           </Col>
         </>
-        :
+      ) : (
         <>
           <Collapse in={zona === "1"}>
             <Container className="pb-0 mb-0 bg-section">
@@ -593,7 +572,7 @@ const UbicacionPersona: React.FC<UbicacionPersonaProps> = ({ method }) => {
             </Container>
           </Collapse>
         </>
-      }
+      )}
     </Row>
   );
 };
