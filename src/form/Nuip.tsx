@@ -7,6 +7,11 @@ import {
   FormControl,
   Row,
 } from "react-bootstrap";
+import {
+  useIdFechaExpedicion,
+  useIdNumeroIdentificacion,
+  useIdTipoIdentificaicon,
+} from "./hooks/NuipHook";
 
 interface NuipProps {
   method: string;
@@ -14,6 +19,20 @@ interface NuipProps {
 }
 
 const Nuip: React.FC<NuipProps> = ({ method, attach = false }) => {
+  // Importar los valores y las funciones de actualización de cada contexto
+  const {
+    idTipoIdentificacion: tipoIdentificacion,
+    setIdTipoIdentificacion: setTipoIdentificacion,
+  } = useIdTipoIdentificaicon();
+  const {
+    idNumeroIdentificacion: numeroIdentificacion,
+    setIdNumeroIdentificacion: setNumeroIdentificacion,
+  } = useIdNumeroIdentificacion();
+  const {
+    idFechaExpedicion: fechaExpedicion,
+    setIdFechaExpedicion: setFechaExpedicion,
+  } = useIdFechaExpedicion();
+
   return (
     <React.Fragment>
       <Row>
@@ -23,17 +42,20 @@ const Nuip: React.FC<NuipProps> = ({ method, attach = false }) => {
             <FormLabel>
               Tipo de identificación <span className="text-danger">*</span>
             </FormLabel>
-            {method === 'GET' ?
+            {method === "GET" ? (
               <FormControl type="text" disabled />
-              :
-              <FormSelect>
+            ) : (
+              <FormSelect
+                value={tipoIdentificacion}
+                onChange={(e) => setTipoIdentificacion(e.target.value)}
+              >
                 <option value="0">Seleccione...</option>
                 <option value="1">Tarjeta de identidad</option>
                 <option value="2">Cédula de ciudadanía</option>
                 <option value="3">Cédula de Extranjería</option>
                 <option value="4">Pasaporte</option>
               </FormSelect>
-            }
+            )}
           </FormGroup>
         </Col>
 
@@ -43,7 +65,15 @@ const Nuip: React.FC<NuipProps> = ({ method, attach = false }) => {
             <FormLabel>
               Número de identificación <span className="text-danger">*</span>
             </FormLabel>
-            <FormControl type="text" minLength={6} maxLength={15} disabled={method === 'GET' ? true : false} required />
+            <FormControl
+              type="text"
+              value={numeroIdentificacion}
+              onChange={(e) => setNumeroIdentificacion(e.target.value)}
+              minLength={6}
+              maxLength={15}
+              disabled={method === "GET" ? true : false}
+              required
+            />
           </FormGroup>
         </Col>
 
@@ -55,8 +85,10 @@ const Nuip: React.FC<NuipProps> = ({ method, attach = false }) => {
             </FormLabel>
             <FormControl
               type="date"
+              value={fechaExpedicion}
+              onChange={(e) => setFechaExpedicion(e.target.value)}
               max={new Date().toISOString().split("T")[0]}
-              disabled={method === 'GET' ? true : false}
+              disabled={method === "GET" ? true : false}
               required
             />
           </FormGroup>

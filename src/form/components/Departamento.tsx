@@ -26,7 +26,7 @@ const Departamento: React.FC<DepartamentoProps> = ({
   useEffect(() => {
     const obtenerDepartamentos = async () => {
       try {
-        const url = `${process.env.REACT_APP_API_ENDPOINT}/departamento/?pais=${idPais}`;
+        const url = `http://localhost:8000/sistema/departamento/?pais=${idPais}`;
         const response = await fetch(url);
         if (response.ok) {
           const data: DepartamentoData[] = await response.json();

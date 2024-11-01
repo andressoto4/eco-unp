@@ -13,7 +13,12 @@ interface PaisProps {
   method?: string;
 }
 
-const Pais: React.FC<PaisProps> = ({ idPaisUbicacion, onChange, paisRef, method }) => {
+const Pais: React.FC<PaisProps> = ({
+  idPaisUbicacion,
+  onChange,
+  paisRef,
+  method,
+}) => {
   const [paises, setPaises] = useState<PaisData[]>([]);
   const [paisSeleccionado, setPaisSeleccionado] = useState<string>("0");
 
@@ -21,7 +26,7 @@ const Pais: React.FC<PaisProps> = ({ idPaisUbicacion, onChange, paisRef, method 
     const obtenerPaises = async () => {
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_ENDPOINT}/pais/`
+          `http://localhost:8000/sistema/pais/`
         );
         if (response.ok) {
           const data: PaisData[] = await response.json();
@@ -62,9 +67,9 @@ const Pais: React.FC<PaisProps> = ({ idPaisUbicacion, onChange, paisRef, method 
       <FormLabel>
         País <span className="text-danger">*</span>
       </FormLabel>
-      {method === 'GET' ?
+      {method === "GET" ? (
         <FormControl type="text" disabled />
-        :
+      ) : (
         <FormSelect
           ref={paisRef}
           value={paisSeleccionado}
@@ -79,7 +84,7 @@ const Pais: React.FC<PaisProps> = ({ idPaisUbicacion, onChange, paisRef, method 
             </option>
           ))}
         </FormSelect>
-      }
+      )}
     </FormGroup>
   );
 };
