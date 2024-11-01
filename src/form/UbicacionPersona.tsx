@@ -213,6 +213,31 @@ const DireccionUrbana: React.FC<DireccionUrbanaProps> = ({}) => {
 
   const [resumenDireccion, setResumenDireccion] = useState<string>("");
 
+  useEffect(() => {
+    const fields = [
+      viaPrincipal,
+      numeroViaPrincipal + letraPrincipal,
+      esBis ? "Bis" : "",
+      cuadrantePrincipal,
+      numeroViaSecundaria ? "# " + numeroViaSecundaria + letraSecundaria : "",
+      cuadranteSecundario,
+      numeroPlaca ? "- " + numeroPlaca : "",
+      complemento,
+    ];
+    setResumenDireccion(fields.filter(Boolean).join(" ").trim());
+  }, [
+    viaPrincipal,
+    numeroViaPrincipal,
+    letraPrincipal,
+    esBis,
+    cuadrantePrincipal,
+    numeroViaSecundaria,
+    letraSecundaria,
+    cuadranteSecundario,
+    numeroPlaca,
+    complemento,
+  ]);
+
   return (
     <Row>
       <Col md={3} xs={12}>
@@ -412,7 +437,6 @@ const DireccionUrbana: React.FC<DireccionUrbanaProps> = ({}) => {
             type="text"
             className="bg-body-secondary"
             value={resumenDireccion}
-            onChange={(e) => setResumenDireccion(e.target.value)}
             disabled
           />
         </FormGroup>
@@ -445,6 +469,11 @@ const DireccionRural: React.FC<DireccionRuralProps> = ({}) => {
   } = useIdDireccionRural();
 
   const [resumenDireccion, setResumenDireccion] = useState<string>("");
+
+  useEffect(() => {
+    const fields = [corregimiento, vereda, centroPoblado];
+    setResumenDireccion(fields.filter(Boolean).join(" ").trim());
+  }, [corregimiento, vereda, centroPoblado]);
 
   return (
     <Row>
@@ -487,6 +516,20 @@ const DireccionRural: React.FC<DireccionRuralProps> = ({}) => {
             value={centroPoblado}
             onChange={(e) => setCentroPoblado(e.target.value)}
             maxLength={100}
+          />
+        </FormGroup>
+      </Col>
+
+      <Col md={8} xs={12}>
+        <FormGroup className="mb-2">
+          <FormLabel>
+            Resumen de dirección <span className="text-danger">**</span>
+          </FormLabel>
+          <FormControl
+            type="text"
+            className="bg-body-secondary"
+            value={resumenDireccion}
+            disabled
           />
         </FormGroup>
       </Col>
@@ -536,25 +579,25 @@ const UbicacionPersona: React.FC<UbicacionPersonaProps> = ({ method }) => {
         </>
       ) : (
         <>
-          <Collapse in={zona === "1"}>
-            <Container className="pb-0 mb-0 bg-section">
-              <Card className="border-light-subtle rounded-3">
+          <Collapse in={zona === "1" || zona === "2"}>
+            <Container className="pb-0 mb-0 bg-section ">
+              <Card className="border-light-subtle rounded-3 my-3">
                 <CardBody>
                   <Row className="mb-1 mt-1">
                     <Col className="col-auto pe-1">
                       <FaTreeCity style={iconStyle} />
                     </Col>
                     <Col className="ps-1 col-auto align-self-center">
-                      <p style={subtituloStyle}>Dirección urbana</p>
+                      <p style={subtituloStyle}>Dirección</p>
                     </Col>
                   </Row>
-                  <DireccionUrbana />
+                  {zona === "1" ? <DireccionUrbana /> : <DireccionRural />}
                 </CardBody>
               </Card>
             </Container>
           </Collapse>
 
-          <Collapse in={zona === "2"}>
+          {/* <Collapse in={zona === "2"}>
             <Container className="pb-0 mb-0 bg-section">
               <Card className="border-light-subtle rounded-3">
                 <CardBody>
@@ -570,7 +613,7 @@ const UbicacionPersona: React.FC<UbicacionPersonaProps> = ({ method }) => {
                 </CardBody>
               </Card>
             </Container>
-          </Collapse>
+          </Collapse> */}
         </>
       )}
     </Row>
