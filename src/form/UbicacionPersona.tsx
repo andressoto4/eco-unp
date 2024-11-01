@@ -208,7 +208,7 @@ const DireccionUrbana: React.FC<DireccionUrbanaProps> = ({}) => {
     setIdNumeroPlaca: setNumeroPlaca,
     setIdComplemento: setComplemento,
     setIdIndicacionDireccionU: setIndicacionDireccionU,
-    setIdResumenDireccionU: setResumenDireccionU
+    setIdResumenDireccionU: setResumenDireccionU,
   } = useIdDireccionUrbana();
 
   const [resumenDireccion, setResumenDireccion] = useState<string>("");
@@ -283,8 +283,8 @@ const DireccionUrbana: React.FC<DireccionUrbanaProps> = ({}) => {
           <FormCheck
             type="checkbox"
             label="¿Es bis?"
-            value={esBis}
-            onChange={(e) => setEsBis(e.target.value)}
+            checked={esBis}
+            onChange={(e) => setEsBis(e.target.checked)}
           />
         </FormGroup>
       </Col>

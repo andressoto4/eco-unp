@@ -186,16 +186,21 @@ const Formulario: React.FC<CardFormBasicosProps> = ({
           await BasicosService(firstFinal);
 
           // Grupo 2 de peticiones
-          const secondGroup = [
-            {
+          const secondGroup = [];
+
+          if (zonaUbicacion === "1") {
+            secondGroup.push({
               url: "http://localhost:8000/usuario/ubicacionrural",
               datos: {
                 corregimiento: corregimiento,
                 centro_poblado: centroPoblado,
                 vereda: vereda,
               },
-            },
-            {
+            });
+          }
+
+          if (zonaUbicacion === "2") {
+            secondGroup.push({
               url: "http://localhost:8000/usuario/ubicacionurbana",
               datos: {
                 nombre_barrio: nombreBarrio,
@@ -210,12 +215,29 @@ const Formulario: React.FC<CardFormBasicosProps> = ({
                 numero_placa: numeroPlaca,
                 complemento: complemento,
               },
-            },
-          ];
+            });
+          }
 
           const secondGroupResponses = await BasicosService(secondGroup);
-          const idZona = secondGroupResponses[0].data.id;
-          const direccion = secondGroupResponses[1].data.id;
+
+          const fields = [
+            viaPrincipal,
+            numeroViaPrincipal + letraPrincipal, // Concatenar número y letra principal
+            esBis ? "Bis" : "",
+            cuadrantePrincipal,
+            numeroViaSecundaria
+              ? "# " + numeroViaSecundaria + letraSecundaria
+              : "", // Concatenar número y letra secundaria
+            cuadranteSecundario,
+            numeroPlaca ? "- " + numeroPlaca : "",
+            " ",
+            complemento,
+          ];
+
+          const direccion = fields
+            .filter((field) => field.trim() !== "")
+            .join(" ")
+            .trim();
 
           // Petición adicional después del segundo grupo
           const secondFinal = [
@@ -225,14 +247,14 @@ const Formulario: React.FC<CardFormBasicosProps> = ({
                 pais: paisUbicacion,
                 departamento: departamentoUbicacion,
                 municipio: municipioUbicacion,
-                zona: idZona,
+                zona: zonaUbicacion,
                 direccion: direccion,
                 indicacion: indicacionDireccionR || indicacionDireccionU,
               },
             },
           ];
 
-          await BasicosService(firstFinal);
+          await BasicosService(secondFinal);
 
           // Grupo 3 de peticiones
           const thirdGroup = [
@@ -256,24 +278,7 @@ const Formulario: React.FC<CardFormBasicosProps> = ({
           ];
 
           const thirdGroupResponses = await BasicosService(thirdGroup);
-          const idIdentificacion = thirdGroupResponses[0].data.id_iusuario;
-          const idNombre = thirdGroupResponses[1].data.id_npersona;
-
-          // Petición adicional después del tercer grupo
-          const thirdFinal = [
-            {
-              url: "http://localhost:8000/usuario/datosbasicosusuario",
-              datos: {
-                identificacion_usuario: idIdentificacion,
-                nombre_persona: idNombre,
-                genero_persona: genero,
-                gp_rh: segundoApellido,
-              },
-            },
-          ];
-
-          await BasicosService(thirdFinal);
-
+          
           return "Finalizado exitosamente";
         })(),
         {

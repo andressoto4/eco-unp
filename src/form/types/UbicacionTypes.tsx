@@ -20,7 +20,7 @@ export interface IdDireccionUrbanaContextType {
   idViaPrincipal: string;
   idNumeroViaPrincipal: string;
   idLetraPrincipal: string;
-  idEsBis: string;
+  idEsBis: boolean;
   idCuadrantePrincipal: string;
   idNumeroViaSecundaria: string;
   idLetraSecundaria: string;
@@ -33,7 +33,7 @@ export interface IdDireccionUrbanaContextType {
   setIdViaPrincipal: (id: string) => void;
   setIdNumeroViaPrincipal: (id: string) => void;
   setIdLetraPrincipal: (id: string) => void;
-  setIdEsBis: (id: string) => void;
+  setIdEsBis: (id: boolean) => void;
   setIdCuadrantePrincipal: (id: string) => void;
   setIdNumeroViaSecundaria: (id: string) => void;
   setIdLetraSecundaria: (id: string) => void;

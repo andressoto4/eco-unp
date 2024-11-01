@@ -49,7 +49,7 @@ const UbicacionProvider: React.FC<UbicacionProviderProps> = ({ children }) => {
   const [idViaPrincipal, setIdViaPrincipal] = useState<string>("");
   const [idNumeroViaPrincipal, setIdNumeroViaPrincipal] = useState<string>("");
   const [idLetraPrincipal, setIdLetraPrincipal] = useState<string>("");
-  const [idEsBis, setIdEsBis] = useState<string>("");
+  const [idEsBis, setIdEsBis] = useState<boolean>(false);
   const [idCuadrantePrincipal, setIdCuadrantePrincipal] = useState<string>("");
   const [idNumeroViaSecundaria, setIdNumeroViaSecundaria] =
     useState<string>("");
