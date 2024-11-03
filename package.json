@@ -5,7 +5,9 @@
   "types": "index.d.ts",
   "exports": {
     "./ui": "./ui/index.js",
-    "./form": "./form/index.js"
+    "./form": "./form/index.js",
+    "./utils": "./utils/index.js",
+    "./contexts": "./contexts/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

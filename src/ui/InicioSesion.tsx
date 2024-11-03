@@ -1,20 +1,10 @@
 // Importación de React y otros módulos necesarios
-import React, { useEffect } from "react";
-import {
-  FaFacebook,
-  FaInstagram,
-  FaXTwitter,
-  FaYoutube,
-  FaPhoneFlip,
-  FaHeadphones,
-  FaFileContract,
-  FaKey,
-} from "react-icons/fa6";
+import React from "react";
+import { FaFileContract, FaKey } from "react-icons/fa6";
 import ReCAPTCHA from "react-google-recaptcha";
 import { Row, Col, Container, Button } from "react-bootstrap";
 
 // Importaciones de componentes propios
-import { IngresoProvider } from "./providers/IngresoProvider";
 import { InicioSesionHook } from "./hooks/InicioSesionHook";
 import { LogosUnp } from "./components/Logos";
 import { Recaptcha } from "./components/Recaptcha";
@@ -22,7 +12,7 @@ import { Usuario, Contrasegna, RedesSociales } from "./components/Login";
 
 // Importación de archivos de estilos CSS
 import "./styles/Bootstrap.css";
-import "./styles/InicioSesionStyles.css";
+import "./styles/InicioSesion.css";
 
 // Definición de tipos para las propiedades del formulario de ingreso
 interface FormIngresoProps {
@@ -40,15 +30,7 @@ const Login: React.FC<FormIngresoProps> = (props) => {
   const blockTime = 10; // Tiempo de bloqueo en segundos
 
   // Uso del hook personalizado InicioSesionHook para manejar el estado del formulario de inicio de sesión
-  const {
-    recaptchaToken,
-    validated,
-    attempts,
-    isBlocked,
-    timer,
-    handleRecaptchaChange,
-    handleSubmit,
-  } = InicioSesionHook(maxAttempts, blockTime);
+  const { recaptchaToken, validated, attempts, isBlocked, timer, handleRecaptchaChange, handleSubmit  } = InicioSesionHook(maxAttempts, blockTime);
 
   // ------ > Renderizado
   return (
@@ -134,13 +116,7 @@ const Login: React.FC<FormIngresoProps> = (props) => {
                 />
               </form>
             </Row>
-
-            {/* Mensaje de error */}
-            {/* {error && (
-              <Alert className="mt-3" key={"danger"} variant={"danger"}>
-                <MdError /> {error}
-              </Alert>
-            )} */}
+            
           </Col>
         </Row>
 
@@ -148,42 +124,7 @@ const Login: React.FC<FormIngresoProps> = (props) => {
         <Row className="mt-2 d-flex justify-content-beetween">
           {/* Columna para los iconos botones de redes sociales */}
           <Col className="ms-0 d-flex justify-content-start">
-            <RedesSociales
-              IconoRedSocial={FaXTwitter}
-              color="#000"
-              descripcion="@UNPColombia"
-              enlace="https://x.com/UNPColombia"
-            />
-            <RedesSociales
-              IconoRedSocial={FaInstagram}
-              color="#F00075"
-              descripcion="@unpcolombia"
-              enlace="https://www.instagram.com/unpcolombia"
-            />
-            <RedesSociales
-              IconoRedSocial={FaFacebook}
-              color="#1778F2"
-              descripcion="@UNPColombia"
-              enlace="https://www.facebook.com/UNPColombia"
-            />
-            <RedesSociales
-              IconoRedSocial={FaYoutube}
-              color="#FF0000"
-              descripcion="@unpcolombia"
-              enlace="https://www.youtube.com/channel/UCUiRLOI-MUqa7ATG-mJwY1w"
-            />
-            <RedesSociales
-              IconoRedSocial={FaHeadphones}
-              color="#1CCFF9"
-              descripcion="UNPRadio"
-              enlace="https://unpradio.unp.gov.co"
-            />
-            <RedesSociales
-              IconoRedSocial={FaPhoneFlip}
-              color="#D32929"
-              descripcion="Línea Vida 103"
-              enlace="https://www.unp.gov.co/atencion-y-servicios-a-la-ciudadania/directorio/linea-vida-103"
-            />
+                {/* Por si se decide incluir redes sociales */}
           </Col>
 
           {/* Enlace a la política de seguridad de la información y protección de datos personales */}
@@ -191,7 +132,7 @@ const Login: React.FC<FormIngresoProps> = (props) => {
             <RedesSociales
               IconoRedSocial={FaFileContract}
               color="#365072"
-              descripcion="Políticas de datos"
+              descripcion="Políticas de datos de la UNP"
               enlace="https://www.unp.gov.co/normativa/politicas-de-seguridad-de-la-informacion-y-proteccion-de-datos-personales/"
             />
             <RedesSociales
@@ -215,10 +156,7 @@ const InicioSesion: React.FC = () => {
   // -----> Renderizado
   return (
     <div className="main-container">
-      {/* El componente IngresoProvider envuelve al componente Login*/}
-      <IngresoProvider>
         <Login />
-      </IngresoProvider>
     </div>
   );
 };

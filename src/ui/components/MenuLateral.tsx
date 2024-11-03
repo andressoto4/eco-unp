@@ -1,6 +1,10 @@
 import React from "react";
-
+import { FinSesionHook } from "../hooks/FinSesionHook";
+import { jwtDecode } from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 import { BiMenu, BiMenuAltRight, BiHome, BiLinkAlt, BiEnvelope, BiLogoRedux, BiErrorCircle, BiLogOut, BiAnalyse, BiBookAlt, BiMapPin, BiShieldPlus, BiSolidPlaneAlt } from "react-icons/bi";
+import { useAuth } from "../../contexts/AuthContex";
+
 import '../styles/MenuLateral.css';
 
 interface MenuLateralProps {
@@ -8,12 +12,33 @@ interface MenuLateralProps {
     isOpen: boolean;
 }
 
+interface DecodedToken {
+    access_puser: string;
+    access_nuser: string;
+    acces_linker: string;
+}
+
 const MenuLateral: React.FC<MenuLateralProps> = ({ onToggle, isOpen }) => {
-    
+
     const sidebarClass = isOpen ? "sidebar-bar-panel open" : "sidebar-bar-panel";
+    const navigate = useNavigate();
+    const { FinSesion } = FinSesionHook();
+    const { userToken } = useAuth();
+    if (!userToken) {
+        return null;
+    }
+    const decodedToken = jwtDecode<DecodedToken>(userToken);
+
+    const photoBase64 = decodedToken.access_puser;
+    const nombreUsuario = decodedToken.access_nuser;
+    const tipoVinculacion = decodedToken.acces_linker;
+
+    const handleNavigate = () => {
+        navigate("/sistema/usuario");
+    };
 
     return (
-        
+
         <div className={`container-fluid ${isOpen ? "menu-open" : ""}`}>
 
             <div className={sidebarClass}>
@@ -53,8 +78,8 @@ const MenuLateral: React.FC<MenuLateralProps> = ({ onToggle, isOpen }) => {
                     </li>
 
 
-                    <div style={{paddingLeft: "15px", paddingRight: "15px"}}>
-                        <hr style={{borderTop: "1px solid white"}} />
+                    <div style={{ paddingLeft: "15px", paddingRight: "15px" }}>
+                        <hr style={{ borderTop: "1px solid white" }} />
                     </div>
 
 
@@ -90,8 +115,8 @@ const MenuLateral: React.FC<MenuLateralProps> = ({ onToggle, isOpen }) => {
                         <span className="tooltip">Mesa de servicios</span>
                     </li>
 
-                    <div style={{paddingLeft: "15px", paddingRight: "15px"}}>
-                        <hr style={{borderTop: "1px solid white"}} />
+                    <div style={{ paddingLeft: "15px", paddingRight: "15px" }}>
+                        <hr style={{ borderTop: "1px solid white" }} />
                     </div>
 
                     <li>
@@ -117,31 +142,29 @@ const MenuLateral: React.FC<MenuLateralProps> = ({ onToggle, isOpen }) => {
                         </a>
                         <span className="tooltip">Solicitud de viáticos</span>
                     </li>
-            
+
                 </ul>
 
                 <div className="profile-content">
 
                     <div className="profile">
-                        
-                        <a href="">
-                            <div className="profile-detail">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE-bIhXf-nPctSOXtLp1haeLK6dZuu-NERXQ&usqp=CAU" alt="" />
-                                <div className="name-job">
-                                    <div className="name">Nombre de la Persona</div>
-                                    <div className="job">Rol en el EI-UNP</div>
-                                </div>
+
+                        <div className="profile-detail" onClick={handleNavigate} style={{ cursor: "pointer" }}>
+                            <img src={`data:image/jpeg;base64,${photoBase64}`} alt="Avatar" />
+                            <div className="name-job">
+                                <div className="name">{nombreUsuario}</div>
+                                <div className="job">{tipoVinculacion}</div>
                             </div>
-                        </a>
-                        
-                        <BiLogOut className='icon' />                               
+                        </div>
+
+                        <BiLogOut className='icon' onClick={FinSesion} />
 
                     </div>
 
                 </div>
 
             </div>
-            
+
         </div>
     );
 };
