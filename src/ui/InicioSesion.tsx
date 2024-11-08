@@ -13,6 +13,11 @@ import {
 import ReCAPTCHA from "react-google-recaptcha";
 import { Row, Col, Container, Button } from "react-bootstrap";
 
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+
+import RegistroPage from "./pages/RegistroPage";
+import FormularioPage from "./pages/FormularioPage";
+
 // Importaciones de componentes propios
 import { IngresoProvider } from "./providers/IngresoProvider";
 import { InicioSesionHook } from "./hooks/InicioSesionHook";
@@ -214,14 +219,25 @@ const Login: React.FC<FormIngresoProps> = (props) => {
 const InicioSesion: React.FC = () => {
   // -----> Renderizado
   return (
-    <div className="main-container">
-      {/* El componente IngresoProvider envuelve al componente Login*/}
-      <IngresoProvider>
-        <Login />
-      </IngresoProvider>
-    </div>
+    <Router>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <div className="main-container">
+              {/* El componente IngresoProvider envuelve al componente Login*/}
+              <IngresoProvider>
+                <Login />
+              </IngresoProvider>
+            </div>
+          }
+        />
+        <Route path="/registro" element={<RegistroPage />} />
+        <Route path="/datos-basicos" element={<FormularioPage />} />
+      </Routes>
+    </Router>
   );
 };
- 
+
 // Exporta el componente IniciarSesion para su uso en otros archivos
 export default InicioSesion;

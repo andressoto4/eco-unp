@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Row, Col, Container, CardBody } from "react-bootstrap";
+import { Row, Col, Container, CardBody, Form } from "react-bootstrap";
 import { toast } from "react-toastify";
 import {
   FaAddressCard,
@@ -127,6 +127,9 @@ const Formulario: React.FC<CardFormBasicosProps> = ({
   const { idGenero: genero } = useIdGenero();
   const { idOrientacionSexual: orientacionSexual } = useIdOrientacionSexual();
 
+  // Obtener valor del checkbox tratamiento de datos
+  const [idTratamiento, setIdTratamiento] = useState<boolean>(false);
+
   const [validated, setValidated] = useState<boolean>(false);
 
   // Función para manejar el envío de formulario
@@ -150,135 +153,62 @@ const Formulario: React.FC<CardFormBasicosProps> = ({
     try {
       await toast.promise(
         (async () => {
-          // Grupo 1 de peticiones
-          const firstGroup = [
-            {
-              url: "http://localhost:8000/usuario/tccusuario",
-              datos: {
-                celular_uno: celularUno,
-                celular_dos: celularDos,
-                celular_emergencia: telefono,
-              },
-            },
-            {
-              url: "http://localhost:8000/usuario/cceusuario",
-              datos: {
-                correo_electronico: correo,
-              },
-            },
-          ];
+          // Construir el objeto con todos los datos necesarios
+          const datos = {
+            // Primer grupo de datos
+            celular_uno: celularUno,
+            celular_dos: celularDos,
+            celular_emergencia: telefono,
+            correo_electronico: correo,
 
-          const firstGroupResponses = await BasicosService(firstGroup);
-          const idTelefono = firstGroupResponses[0].data.idTelefono;
-          const idCorreo = firstGroupResponses[1].data.idCorreo;
+            // Datos de contacto dependientes
+            id_ctelefono: undefined, // este será completado en el backend
+            id_ccelectronico: undefined, // este será completado en el backend
 
-          // Petición adicional después del primer grupo
-          const firstFinal = [
-            {
-              url: "http://localhost:8000/usuario/datoscontacto",
-              datos: {
-                id_ctelefono: idTelefono,
-                id_ccelectronico: idCorreo,
-              },
-            },
-          ];
+            // Segundo grupo de datos (ubicación)
+            pais: paisUbicacion,
+            departamento: departamentoUbicacion,
+            municipio: municipioUbicacion,
+            zona: zonaUbicacion,
+            indicacion:
+              zonaUbicacion === "1"
+                ? indicacionDireccionR
+                : indicacionDireccionU,
 
-          await BasicosService(firstFinal);
+            // Dependiendo de `zonaUbicacion`, agregar detalles rurales o urbanos
+            ...(zonaUbicacion === "1"
+              ? {
+                  corregimiento,
+                  centro_poblado: centroPoblado,
+                  vereda,
+                }
+              : {
+                  nombre_barrio: nombreBarrio,
+                  tipo_viaprincipal: viaPrincipal,
+                  numero_viaprincipal: numeroViaPrincipal,
+                  letra_principal: letraPrincipal,
+                  es_bis: esBis,
+                  cuadrante_principal: cuadrantePrincipal,
+                  numero_viasecundaria: numeroViaSecundaria,
+                  letra_secundaria: letraSecundaria,
+                  cuadrante_secundario: cuadranteSecundario,
+                  numero_placa: numeroPlaca,
+                  complemento: complemento,
+                }),
 
-          // Grupo 2 de peticiones
-          const secondGroup = [];
+            // Tercer grupo de datos (identificación y nombre)
+            numero_identificacion: numeroIdentificacion,
+            fecha_expedicion: fechaExpedicion,
+            tipo_identificacion: tipoIdentificacion,
+            primer_nombre: primerNombre,
+            segundo_nombre: segundoNombre,
+            primer_apellido: primerApellido,
+            segundo_apellido: segundoApellido,
+          };
 
-          if (zonaUbicacion === "1") {
-            secondGroup.push({
-              url: "http://localhost:8000/usuario/ubicacionrural",
-              datos: {
-                corregimiento: corregimiento,
-                centro_poblado: centroPoblado,
-                vereda: vereda,
-              },
-            });
-          }
+          // Ejecutar la solicitud de envío con `BasicosService`
+          await BasicosService(datos);
 
-          if (zonaUbicacion === "2") {
-            secondGroup.push({
-              url: "http://localhost:8000/usuario/ubicacionurbana",
-              datos: {
-                nombre_barrio: nombreBarrio,
-                tipo_viaprincipal: viaPrincipal,
-                numero_viaprincipal: numeroViaPrincipal,
-                letra_principal: letraPrincipal,
-                es_bis: esBis,
-                cuadrante_principal: cuadrantePrincipal,
-                numero_viasecundaria: numeroViaSecundaria,
-                letra_secundaria: letraSecundaria,
-                cuadrante_secundario: cuadranteSecundario,
-                numero_placa: numeroPlaca,
-                complemento: complemento,
-              },
-            });
-          }
-
-          const secondGroupResponses = await BasicosService(secondGroup);
-
-          const fields = [
-            viaPrincipal,
-            numeroViaPrincipal + letraPrincipal, // Concatenar número y letra principal
-            esBis ? "Bis" : "",
-            cuadrantePrincipal,
-            numeroViaSecundaria
-              ? "# " + numeroViaSecundaria + letraSecundaria
-              : "", // Concatenar número y letra secundaria
-            cuadranteSecundario,
-            numeroPlaca ? "- " + numeroPlaca : "",
-            " ",
-            complemento,
-          ];
-
-          const direccion = fields
-            .filter((field) => field.trim() !== "")
-            .join(" ")
-            .trim();
-
-          // Petición adicional después del segundo grupo
-          const secondFinal = [
-            {
-              url: "http://localhost:8000/usuario/datosubicacion",
-              datos: {
-                pais: paisUbicacion,
-                departamento: departamentoUbicacion,
-                municipio: municipioUbicacion,
-                zona: zonaUbicacion,
-                direccion: direccion,
-                indicacion: indicacionDireccionR || indicacionDireccionU,
-              },
-            },
-          ];
-
-          await BasicosService(secondFinal);
-
-          // Grupo 3 de peticiones
-          const thirdGroup = [
-            {
-              url: "http://localhost:8000/usuario/identificacionusuario",
-              datos: {
-                numero_identificacion: numeroIdentificacion,
-                fecha_expedicion: fechaExpedicion,
-                tipo_identificacion: tipoIdentificacion,
-              },
-            },
-            {
-              url: "http://localhost:8000/usuario/nombreusuario",
-              datos: {
-                primer_nombre: primerNombre,
-                segundo_nombre: segundoNombre,
-                primer_apellido: primerApellido,
-                segundo_apellido: segundoApellido,
-              },
-            },
-          ];
-
-          const thirdGroupResponses = await BasicosService(thirdGroup);
-          
           return "Finalizado exitosamente";
         })(),
         {
@@ -345,6 +275,26 @@ const Formulario: React.FC<CardFormBasicosProps> = ({
         <CardBody>
           <SubtituloForm subtitulo={"Ubicación"} icon={FaLocationDot} />
           <UbicacionPersona method={methodBasicos} />
+        </CardBody>
+        <CardBody>
+          <Form.Check>
+            <Form.Check.Input
+              type="checkbox"
+              checked={idTratamiento}
+              onChange={(e) => setIdTratamiento(!idTratamiento)}
+              required
+            />
+            <Form.Check.Label>
+              {"Acepto las "}
+              <a
+                href="https://www.unp.gov.co/normativa/politicas-de-seguridad-de-la-informacion-y-proteccion-de-datos-personales/"
+                target="_blank"
+              >
+                Políticas de seguridad de la información y protección de datos
+                personales
+              </a>
+            </Form.Check.Label>
+          </Form.Check>
         </CardBody>
       </CardForm>
     </>
