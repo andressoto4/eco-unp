@@ -1,8 +1,8 @@
 import React from "react";
 
-import MenuLateral from "./components/MenuLateral";
-import NotificacionUsuario from "./components/NotificacionUsuario";
-import TabVentana from "./components/TabVentana";
+import MenuLateral from "./MenuLateral";
+import NotificacionUsuario from "./NotificacionUsuario";
+import TabVentana from "./TabVentana";
 
 import { Tabs } from "react-bootstrap"; 
 import 'bootstrap/dist/css/bootstrap.min.css';

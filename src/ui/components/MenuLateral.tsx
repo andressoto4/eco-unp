@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { FinSesionHook } from "../hooks/FinSesionHook";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import { BiMenu, BiMenuAltRight, BiHome, BiLinkAlt, BiEnvelope, BiLogoRedux, BiErrorCircle, BiLogOut, BiAnalyse, BiBookAlt, BiMapPin, BiShieldPlus, BiSolidPlaneAlt } from "react-icons/bi";
+import { BiMenu, BiMenuAltRight, BiHome, BiLinkAlt, BiEnvelope, BiLogoRedux, BiErrorCircle, BiLogOut, BiAnalyse, BiBookAlt, BiMapPin, BiShieldPlus, BiSolidPlaneAlt, BiFile } from "react-icons/bi";
 import '../styles/MenuLateral.css';
+import { urlCertificadoLaboral, urlBase } from "../../utils/Url";
 
 interface MenuLateralProps {
     onToggle: () => void;
@@ -57,7 +58,7 @@ const MenuLateral: React.FC<MenuLateralProps> = ({ onToggle, isOpen }) => {
             <div className={sidebarClass}>
                 <div className="logo_details">
                     <img src="/logo-unp-gris.png" alt="Logo" className="icon logo-image" />
-                    <div className="logo-name">ECOSISTEMA UNP</div>
+                    <div className="logo-name">EI-UNP</div>
                     {isOpen ? <BiMenuAltRight className="bx bx-menu i" id="btn" onClick={onToggle} /> : <BiMenu className="bx bx-menu i" id="btn" onClick={onToggle} />}
                 </div>
                 <ul className="nav-list-panel">
@@ -140,12 +141,19 @@ const MenuLateral: React.FC<MenuLateralProps> = ({ onToggle, isOpen }) => {
                         </a>
                         <span className="tooltip">Solicitud de viáticos</span>
                     </li>
+                    <li>
+                        <a href={`${urlBase}${urlCertificadoLaboral}`}>
+                            <BiFile className='bx i2' />
+                            <span className="link_name">Certificados laborales (OPS)</span>
+                        </a>
+                        <span className="tooltip">Certificados laborales (OPS)</span>
+                    </li>
                 </ul>
                 <div className="profile-content">
                     <div className="profile">
                         <div className="profile-detail" onClick={handleNavigate} style={{ cursor: "pointer" }}>
                             {decodedToken && (
-                                <div className="name-job">
+                                <div className="name-job" style={{marginTop: '3px'}}>
                                     <div className="name">{decodedToken.access_nuser}</div>
                                     <div className="job">{decodedToken.acces_linker}</div>
                                 </div>

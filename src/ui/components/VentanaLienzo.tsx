@@ -1,7 +1,7 @@
 // VentanaLienzo-V.0.1 --> desarrollador: andres.soto
 
 import React from "react";
-import MenuLateral from "./components/MenuLateral";
+import MenuLateral from "./MenuLateral";
 
 interface VentanaLienzoProps {
     children?: React.ReactElement | React.ReactElement[];

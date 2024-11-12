@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Table } from "react-bootstrap";
-import BusquedaInput from "./components/Buscador";
-import CustomModal from "./components/Modal";
+import BusquedaInput from "./Buscador";
+import CustomModal from "./Modal";
 import Lottie from "lottie-react";
-import logo from "./assets/logo.png";
-import "./styles/Tabla.css";
-import noData from "./assets/animations/noData.json";
-import noInfo from "./assets/animations/noInfo.json";
+import logo from "../assets/logo.png";
+import "../styles/Tabla.css";
+import noData from "../assets/animations/noData.json";
+import noInfo from "../assets/animations/noInfo.json";
 
 interface Column {
   key: string;

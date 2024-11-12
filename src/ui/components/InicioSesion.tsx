@@ -5,10 +5,10 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { Row, Col, Container, Button } from "react-bootstrap";
 
 // Importaciones de componentes propios
-import { InicioSesionHook } from "./hooks/InicioSesionHook";
-import { LogosUnp } from "./components/Logos";
-import { Recaptcha } from "./components/Recaptcha";
-import { Usuario, Contrasegna, RedesSociales } from "./components/Login";
+import { InicioSesionHook } from "../hooks/InicioSesionHook";
+import { LogosUnp } from "./Logos";
+import { Recaptcha } from "./Recaptcha";
+import { Usuario, Contrasegna, RedesSociales } from "./Login";
 
 // Importación de archivos de estilos CSS
 import "./styles/Bootstrap.css";

@@ -1,9 +1,9 @@
-export { default as CardForm } from "./CardForm";
-export { default as VentanaLienzo } from "./VentanaLienzo";
-export { default as VentanaUsuario } from "./VentanaUsuario";
-export { default as InicioSesion } from "./InicioSesion";
-export { default as BootstrapTable } from "./Tabla";
-export { default as SubtituloForm } from "./SubtituloForm";
+export { default as CardForm } from "./components/CardForm";
+export { default as VentanaLienzo } from "./components/VentanaLienzo";
+export { default as VentanaUsuario } from "./components/VentanaUsuario";
+export { default as InicioSesion } from "./components/InicioSesion";
+export { default as BootstrapTable } from "./components/Tabla";
+export { default as SubtituloForm } from "./components/SubtituloForm";
 export { default as Encabezado } from "./components/Encabezado";
 export { default as TabVentana } from "./components/TabVentana";
 export { default as BusquedaInput } from "./components/Buscador";
