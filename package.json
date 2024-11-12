@@ -1,6 +1,6 @@
 {
   "name": "eco-unp",
-  "version": "1.0.116",
+  "version": "1.0.117",
   "main": "index.js",
   "types": "index.d.ts",
   "exports": {

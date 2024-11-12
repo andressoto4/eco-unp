@@ -1,8 +1,10 @@
+import { urlRequest } from "../../utils";
+
 export const FinSesionRequest = async (accessToken: string) => {
 
     try {
 
-      const response = await fetch("http://127.0.0.1:8000/inicio/salida/", {
+      const response = await fetch(`${urlRequest}/inicio//inicio/salida/`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,

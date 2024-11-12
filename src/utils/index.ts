@@ -1,2 +1,3 @@
-export { default as ProtectedRoote } from "./ProtectedRoote";
+export { default as ProtectedRoute } from "./ProtectedRoute";
 export { useFetchData, useColumns} from "./useTable";
+export { urlBase, urlRequest } from "./Url";

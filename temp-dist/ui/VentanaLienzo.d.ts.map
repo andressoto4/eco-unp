@@ -1,1 +1,0 @@
-{"version":3,"file":"VentanaLienzo.d.ts","sourceRoot":"","sources":["../../src/ui/VentanaLienzo.tsx"],"names":[],"mappings":"AAEA,OAAO,KAAK,MAAM,OAAO,CAAC;AAG1B,UAAU,kBAAkB;IACxB,QAAQ,CAAC,EAAE,KAAK,CAAC,YAAY,GAAG,KAAK,CAAC,YAAY,EAAE,CAAC;CACxD;AAED,QAAA,MAAM,aAAa,EAAE,KAAK,CAAC,EAAE,CAAC,kBAAkB,CAoB/C,CAAC;AAEF,eAAe,aAAa,CAAC"}

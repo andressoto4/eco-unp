@@ -8,7 +8,7 @@ interface DecodedToken {
     access_url: string[];
 }
 
-const ProtectedRoote: React.FC = () => {
+const ProtectedRoute: React.FC = () => {
     const { authToken, userToken } = useAuth();
     const location = useLocation();
 
@@ -42,4 +42,4 @@ const ProtectedRoote: React.FC = () => {
     return <Outlet />;
 };
 
-export default ProtectedRoote;
+export default ProtectedRoute;

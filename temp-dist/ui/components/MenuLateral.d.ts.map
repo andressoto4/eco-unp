@@ -1,1 +1,0 @@
-{"version":3,"file":"MenuLateral.d.ts","sourceRoot":"","sources":["../../../src/ui/components/MenuLateral.tsx"],"names":[],"mappings":"AAAA,OAAO,KAA8B,MAAM,OAAO,CAAC;AAKnD,OAAO,2BAA2B,CAAC;AAEnC,UAAU,gBAAgB;IACtB,QAAQ,EAAE,MAAM,IAAI,CAAC;IACrB,MAAM,EAAE,OAAO,CAAC;CACnB;AAOD,QAAA,MAAM,WAAW,EAAE,KAAK,CAAC,EAAE,CAAC,gBAAgB,CA8I3C,CAAC;AAEF,eAAe,WAAW,CAAC"}

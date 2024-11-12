@@ -1,10 +1,12 @@
+import { urlRequest } from "../../utils";
+
 export const InicioSesionRequest = async (
   username: string,
   password: string,
   recaptchaToken: string | null
 ) => {
   try {
-    const response = await fetch("http://localhost:8000/inicio/ingreso/", {
+    const response = await fetch(`${urlRequest}/inicio/ingreso/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

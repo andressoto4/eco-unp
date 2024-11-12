@@ -1,1 +1,0 @@
-{"version":3,"file":"Buscador.d.ts","sourceRoot":"","sources":["../../../src/ui/components/Buscador.tsx"],"names":[],"mappings":"AAAA,OAAO,KAAK,MAAM,OAAO,CAAC;AAG1B,OAAO,wBAAwB,CAAC;AAEhC,UAAU,kBAAkB;IACxB,QAAQ,EAAE,CAAC,KAAK,EAAE,MAAM,KAAK,IAAI,CAAC;CACrC;AAED,QAAA,MAAM,aAAa,EAAE,KAAK,CAAC,EAAE,CAAC,kBAAkB,CAwB/C,CAAC;AAEF,eAAe,aAAa,CAAC"}
