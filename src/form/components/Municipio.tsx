@@ -30,7 +30,7 @@ const Municipio: React.FC<MunicipioProps> = ({
 
     const obtenerMunicipio = async () => {
       try {
-        const url = `http://localhost:8000/sistema/municipio/?departamento=${idDepartamento}`;
+        const url = `https://ecosistemapruebas.unp.gov.co/api-eiunp/sistema/municipio/?departamento=${idDepartamento}`;
         const response = await fetch(url);
         if (response.ok) {
           const data: MunicipioData[] = await response.json();

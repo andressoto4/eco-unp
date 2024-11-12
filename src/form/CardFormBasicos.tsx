@@ -8,6 +8,7 @@ import {
   FaPen,
   FaPhone,
   FaUser,
+  FaPuzzlePiece,
 } from "react-icons/fa6";
 import { CardForm, Encabezado, SubtituloForm } from "../ui/index";
 import NombrePersona from "./NombrePersona";
@@ -15,6 +16,7 @@ import Nuip from "./Nuip";
 import SexoGeneroPersona from "./SexoGeneroPersona";
 import ContactoPersona from "./ContactoPersona";
 import UbicacionPersona from "./UbicacionPersona";
+import ComplementariosPersona from "./ComplementariosPersona";
 
 import {
   useIdPrimerNombre,
@@ -51,12 +53,23 @@ import {
   useIdDireccionRural,
 } from "./hooks/UbicacionHook";
 
+import {
+  useIdEstadoCivil,
+  useIdFondoPension,
+  useIdEps,
+  useIdRh,
+  useIdTipoVinculacion,
+  useIdContratista,
+  useIdFuncionario,
+} from "./hooks/ComplementariosHook";
+
 import { BasicosService } from "./services/BasicosService";
 import { NombreProvider } from "./contexts/NombreContext";
 import { NuipProvider } from "./contexts/NuipContext";
 import { SexoGeneroProvider } from "./contexts/SexoGeneroContext";
 import { ContactoProvider } from "./contexts/ContactoContext";
 import { UbicacionProvider } from "./contexts/UbicacionContext";
+import { ComplementariosProvider } from "./contexts/ComplementariosContext";
 
 interface CardFormBasicosProps {
   method: string;
@@ -126,6 +139,19 @@ const Formulario: React.FC<CardFormBasicosProps> = ({
   const { idSexo: sexo } = useIdSexo();
   const { idGenero: genero } = useIdGenero();
   const { idOrientacionSexual: orientacionSexual } = useIdOrientacionSexual();
+
+  // Obtener los valores del contexto de Complementarios
+  const { idEstadoCivil: estadoCivil } = useIdEstadoCivil();
+  const { idFondoPension: fondoPension } = useIdFondoPension();
+  const { idEps: eps } = useIdEps();
+  const { idRh: rh } = useIdRh();
+  const { idTipoVinculacion: tipoVinculacion } = useIdTipoVinculacion();
+  const {
+    idNumeroContrato: numeroContrato,
+    idFechaInicioContrato: fechaInicioContrato,
+    idFechaFinContrato: fechaFinContrato,
+  } = useIdContratista();
+  const { idNumeroResolucion: numeroResolucion } = useIdFuncionario();
 
   // Obtener valor del checkbox tratamiento de datos
   const [idTratamiento, setIdTratamiento] = useState<boolean>(false);
@@ -204,6 +230,29 @@ const Formulario: React.FC<CardFormBasicosProps> = ({
             segundo_nombre: segundoNombre,
             primer_apellido: primerApellido,
             segundo_apellido: segundoApellido,
+            sexo_persona: sexo,
+            genero_persona: genero,
+            orientacion_persona: orientacionSexual,
+
+            // Cuarto grupo de datos (complementarios)
+            estado_civil: estadoCivil,
+            fondo_pensiones: fondoPension,
+            eps: eps,
+            gp_rh: rh,
+            tipo_vinculacion: tipoVinculacion,
+            acepto_politicas: idTratamiento,
+
+            ...(tipoVinculacion === "1"
+              ? {
+                  numero_contrato: numeroContrato,
+                  fecha_iniciocontrato: fechaInicioContrato,
+                  fecha_fincontrato: fechaFinContrato,
+                  id_cusuario: undefined, // este será completado en el backend
+                }
+              : {
+                  numero_resolucion: numeroResolucion,
+                  id_cusuario: undefined, // este será completado en el backend
+                }),
           };
 
           // Ejecutar la solicitud de envío con `BasicosService`
@@ -276,6 +325,13 @@ const Formulario: React.FC<CardFormBasicosProps> = ({
           <SubtituloForm subtitulo={"Ubicación"} icon={FaLocationDot} />
           <UbicacionPersona method={methodBasicos} />
         </CardBody>
+        <CardBody style={cardBodyStyle}>
+          <SubtituloForm
+            subtitulo={"Datos complementarios"}
+            icon={FaPuzzlePiece}
+          />
+          <ComplementariosPersona method={methodBasicos} />
+        </CardBody>
         <CardBody>
           <Form.Check>
             <Form.Check.Input
@@ -314,12 +370,14 @@ const CardFormBasicos: React.FC<CardFormBasicosProps> = ({
           <SexoGeneroProvider>
             <ContactoProvider>
               <UbicacionProvider>
-                <Formulario
-                  method={method}
-                  canEdit={canEdit}
-                  hasHeader={hasHeader}
-                  dependencia={dependencia}
-                />
+                <ComplementariosProvider>
+                  <Formulario
+                    method={method}
+                    canEdit={canEdit}
+                    hasHeader={hasHeader}
+                    dependencia={dependencia}
+                  />
+                </ComplementariosProvider>
               </UbicacionProvider>
             </ContactoProvider>
           </SexoGeneroProvider>

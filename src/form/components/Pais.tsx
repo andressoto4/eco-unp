@@ -26,7 +26,7 @@ const Pais: React.FC<PaisProps> = ({
     const obtenerPaises = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8000/sistema/pais/`
+          `https://ecosistemapruebas.unp.gov.co/api-eiunp/sistema/pais/`
         );
         if (response.ok) {
           const data: PaisData[] = await response.json();
