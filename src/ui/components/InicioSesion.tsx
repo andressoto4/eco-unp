@@ -11,8 +11,8 @@ import { Recaptcha } from "./Recaptcha";
 import { Usuario, Contrasegna, RedesSociales } from "./Login";
 
 // Importación de archivos de estilos CSS
-import "./styles/Bootstrap.css";
-import "./styles/InicioSesion.css";
+import "../styles/Bootstrap.css";
+import "../styles/InicioSesion.css";
 
 // Definición de tipos para las propiedades del formulario de ingreso
 interface FormIngresoProps {

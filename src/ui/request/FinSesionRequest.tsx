@@ -4,7 +4,7 @@ export const FinSesionRequest = async (accessToken: string) => {
 
     try {
 
-      const response = await fetch(`${urlRequest}/inicio//inicio/salida/`, {
+      const response = await fetch(`${urlRequest}/inicio/salida/`, {
         method: "POST",
         headers: {
           "Authorization": `Bearer ${accessToken}`,
