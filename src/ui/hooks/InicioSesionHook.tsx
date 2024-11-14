@@ -12,7 +12,6 @@ interface CustomTokenPayload extends JwtPayload {
 }
 
 export const InicioSesionHook = (maxAttempts: number, blockTime: number) => {
-
   const [recaptchaToken, setRecaptchaToken] = useState<string | null>(null);
   const [validated, setValidated] = useState<boolean>(false);
   const [attempts, setAttempts] = useState<number>(0);
@@ -21,7 +20,6 @@ export const InicioSesionHook = (maxAttempts: number, blockTime: number) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-
     let interval: NodeJS.Timeout | undefined;
 
     // Si el usuario está bloqueado y el temporizador es mayor que 0
@@ -46,7 +44,7 @@ export const InicioSesionHook = (maxAttempts: number, blockTime: number) => {
   }, [isBlocked, timer]);
 
   useEffect(() => {
-    const interval = setInterval(verificarRenovarToken, 5 * 60 * 1000);   // Llamar a la función de verificación y renovación del token periódicamente (por ejemplo, cada minuto)
+    const interval = setInterval(verificarRenovarToken, 5 * 60 * 1000); // Llamar a la función de verificación y renovación del token periódicamente (por ejemplo, cada minuto)
     return () => clearInterval(interval);
   }, []);
 
@@ -68,8 +66,12 @@ export const InicioSesionHook = (maxAttempts: number, blockTime: number) => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, usuarioRef: React.RefObject<HTMLInputElement>, contrasegnaRef: React.RefObject<HTMLInputElement>, recaptchaRef: React.RefObject<ReCAPTCHA>) => {
-
+  const handleSubmit = async (
+    e: React.FormEvent<HTMLFormElement>,
+    usuarioRef: React.RefObject<HTMLInputElement>,
+    contrasegnaRef: React.RefObject<HTMLInputElement>,
+    recaptchaRef: React.RefObject<ReCAPTCHA>
+  ) => {
     e.preventDefault();
     const form = e.currentTarget;
 
@@ -79,13 +81,21 @@ export const InicioSesionHook = (maxAttempts: number, blockTime: number) => {
 
         e.stopPropagation();
         setValidated(false);
-        toast.error("Formulario no valido", { position: "top-right", className: "foo-bar", hideProgressBar: true, });
+        toast.error("Formulario no valido", {
+          position: "top-right",
+          className: "foo-bar",
+          hideProgressBar: true,
+        });
         return;
       }
 
       if (!recaptchaToken) {
         e.stopPropagation();
-        toast.error("Por favor, completa el reCAPTCHA", { position: "top-right", className: "foo-bar", hideProgressBar: true, });
+        toast.error("Por favor, completa el reCAPTCHA", {
+          position: "top-right",
+          className: "foo-bar",
+          hideProgressBar: true,
+        });
         return;
       }
 
@@ -104,25 +114,27 @@ export const InicioSesionHook = (maxAttempts: number, blockTime: number) => {
                 render({ data }) {
                   const accessToken = data.access_token;
                   const userToken = data.user_token;
-  
+
                   localStorage.setItem("access_token", accessToken);
                   localStorage.setItem("user_token", userToken);
                   const userInfo = decodeToken(userToken);
-  
+
                   if (userInfo && userInfo.accessUrl) {
                     setTimeout(() => {
                       // @ts-ignore
-                      const url = userInfo.accessUrl[0]; 
+                      const url = userInfo.accessUrl[0];
                       navigate(url);
                     }, 1000);
                   } else {
-                    navigate('/sistema/usuario')
+                    navigate("/sistema/usuario");
                     console.error("La URL de acceso no está disponible");
                   }
 
                   return "¡Inicio de sesión exitoso!";
                 },
-                position: "top-right", className: "foo-bar", hideProgressBar: true
+                position: "top-right",
+                className: "foo-bar",
+                hideProgressBar: true,
               },
               error: {
                 render({ data }) {
@@ -140,16 +152,23 @@ export const InicioSesionHook = (maxAttempts: number, blockTime: number) => {
                 },
               },
             },
-            { position: "top-right", className: "foo-bar", hideProgressBar: true, }
+            {
+              position: "top-right",
+              className: "foo-bar",
+              hideProgressBar: true,
+            }
           );
         } catch (err) {
-          toast.error("Hubo un error", { position: "top-right", className: "foo-bar", hideProgressBar: true, });
+          toast.error("Hubo un error", {
+            position: "top-right",
+            className: "foo-bar",
+            hideProgressBar: true,
+          });
           recaptchaRef.current?.reset();
 
           setTimeout(() => {
             window.location.reload();
-          }, 2000)
-
+          }, 2000);
         } finally {
           if (attempts + 1 >= maxAttempts) {
             setIsBlocked(true);
@@ -157,7 +176,11 @@ export const InicioSesionHook = (maxAttempts: number, blockTime: number) => {
           }
         }
       } else {
-        toast.error("Usuario o contraseña no pueden estar vacíos", { position: "top-right", className: "foo-bar", hideProgressBar: true, });
+        toast.error("Usuario o contraseña no pueden estar vacíos", {
+          position: "top-right",
+          className: "foo-bar",
+          hideProgressBar: true,
+        });
       }
     } else {
       setIsBlocked(true);
@@ -165,6 +188,13 @@ export const InicioSesionHook = (maxAttempts: number, blockTime: number) => {
     }
   };
 
-  return { recaptchaToken, validated, attempts, isBlocked, timer, handleRecaptchaChange, handleSubmit, };
-
+  return {
+    recaptchaToken,
+    validated,
+    attempts,
+    isBlocked,
+    timer,
+    handleRecaptchaChange,
+    handleSubmit,
+  };
 };

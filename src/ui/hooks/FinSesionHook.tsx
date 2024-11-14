@@ -11,7 +11,7 @@ export const FinSesionHook = () => {
     toast.promise(
       new Promise(async (resolve, reject) => {
         try {
-          const accessToken = localStorage.getItem('access_token');
+          const accessToken = localStorage.getItem("access_token");
           if (!accessToken) {
             throw new Error("No se encontró el token de acceso.");
           }
@@ -20,23 +20,26 @@ export const FinSesionHook = () => {
           await FinSesionRequest(accessToken);
 
           // Borrar la información del localStorage y del contexto
-          localStorage.removeItem('access_token');
-          localStorage.removeItem('user_token');
+          localStorage.removeItem("access_token");
+          localStorage.removeItem("user_token");
           setAuthToken(null);
           setUserToken(null);
 
           setTimeout(() => {
             resolve(true);
-            navigate('/');
+            navigate("/");
           }, 1000);
         } catch (error) {
           reject(error);
         }
       }),
-      { pending: "Finalizando sesión...", success: "Sesión finalizada con éxito", error: "Error al finalizar la sesión" }
+      {
+        pending: "Finalizando sesión...",
+        success: "Sesión finalizada con éxito",
+        error: "Error al finalizar la sesión",
+      }
     );
   };
 
   return { FinSesion };
-  
 };

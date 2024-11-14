@@ -1,10 +1,19 @@
 import React, { useState } from "react";
-import { validarTextoMayusculasYNumeros, validarTextoPuntoTexto } from "../func/ValidacionInput";
+import {
+  validarTextoMayusculasYNumeros,
+  validarTextoPuntoTexto,
+} from "../func/ValidacionInput";
 import { FaUser, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { FaUnlockKeyhole } from "react-icons/fa6";
-import { Col, FormGroup, FormLabel, FormControl, InputGroup, Button } from "react-bootstrap";
-import '../styles/Bootstrap.css'
-
+import {
+  Col,
+  FormGroup,
+  FormLabel,
+  FormControl,
+  InputGroup,
+  Button,
+} from "react-bootstrap";
+import "../styles/Bootstrap.css";
 
 interface UsuarioProps {
   usuarioRef: React.RefObject<HTMLInputElement>;
@@ -23,7 +32,6 @@ interface SocialIconProps {
 
 // Componente del input de usuario
 const Usuario: React.FC<UsuarioProps> = ({ usuarioRef }) => {
-
   const [usuario, setUsuario] = useState<string>("");
   const [isValid, setIsValid] = useState<boolean>(false);
   const [pattern, setPattern] = useState<string>("");
@@ -81,7 +89,6 @@ const Usuario: React.FC<UsuarioProps> = ({ usuarioRef }) => {
 };
 
 const Contrasegna: React.FC<ContrasegnaProps> = ({ contrasegnaRef }) => {
-
   const [contrasegna, setContrasegna] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
