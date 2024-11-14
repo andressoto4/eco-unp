@@ -168,7 +168,7 @@ const BootstrapTable: React.FC<TableProps> = ({
                         }}
                         className={column.hasModal ? "cell-with-modal" : ""}
                       >
-                        {column.key === "dias_habiles" ? (
+                        {column.key === "diasHabiles" ? (
                           <div
                             style={{
                               display: "flex",
@@ -181,14 +181,14 @@ const BootstrapTable: React.FC<TableProps> = ({
                                 borderRadius: "100px",
                                 width: "40px",
                                 backgroundColor: getBackgroundAndTextColor(
-                                  row.dias_habiles
+                                  row.diasHabiles
                                 ).backgroundColor,
                                 color: getBackgroundAndTextColor(
-                                  row.dias_habiles
+                                  row.diasHabiles
                                 ).color,
                               }}
                             >
-                              <span>{row.dias_habiles}</span>
+                              <span>{row.diasHabiles}</span>
                             </div>
                           </div>
                         ) : column.renderComponent ? (

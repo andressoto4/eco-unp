@@ -1,11 +1,13 @@
 {
   "name": "eco-unp",
-  "version": "0.0.374",
+  "version": "1.0.117",
   "main": "index.js",
   "types": "index.d.ts",
   "exports": {
     "./ui": "./ui/index.js",
-    "./form": "./form/index.js"
+    "./form": "./form/index.js",
+    "./utils": "./utils/index.js",
+    "./contexts": "./contexts/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -26,7 +28,8 @@
     "react-google-recaptcha": "^3.1.0",
     "react-icons": "^5.3.0",
     "react-toastify": "^10.0.5",
-    "tslib": "^2.7.0"
+    "tslib": "^2.7.0",
+    "typescript": "^5.6.3"
   },
   "devDependencies": {
     "@types/bootstrap": "^5.2.10",

@@ -129,7 +129,7 @@ body {
   position: absolute;
   top: -20px;
   left: calc(100% + 15px);
-  z-index: 3;
+  z-index: 9000 !important;
   background-color: var(--color-white);
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   padding: 6px 14px;
@@ -262,13 +262,6 @@ body {
 }
 
 /* profile */
-
-.profile .profile-detail img {
-  height: 40px;
-  width: 40px;
-  object-fit: cover;
-  border-radius: 7px;
-}
 
 .profile .profile-detail .name-job {
   margin-left: 10px;

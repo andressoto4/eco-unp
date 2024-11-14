@@ -1,23 +1,10 @@
-import React, { useState, useContext } from "react";
-import {
-  IdUsuarioContext,
-  IdContrasegnaContext,
-} from "../contexts/IngresoContex";
-import {
-  validarTextoMayusculasYNumeros,
-  validarTextoPuntoTexto,
-  formatearUsuario,
-} from "../func/ValidacionInput";
+import React, { useState } from "react";
+import { validarTextoMayusculasYNumeros, validarTextoPuntoTexto } from "../func/ValidacionInput";
 import { FaUser, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { FaUnlockKeyhole } from "react-icons/fa6";
-import {
-  Col,
-  FormGroup,
-  FormLabel,
-  FormControl,
-  InputGroup,
-  Button,
-} from "react-bootstrap";
+import { Col, FormGroup, FormLabel, FormControl, InputGroup, Button } from "react-bootstrap";
+import '../styles/Bootstrap.css'
+
 
 interface UsuarioProps {
   usuarioRef: React.RefObject<HTMLInputElement>;
@@ -36,11 +23,7 @@ interface SocialIconProps {
 
 // Componente del input de usuario
 const Usuario: React.FC<UsuarioProps> = ({ usuarioRef }) => {
-  const usuarioContext = useContext(IdUsuarioContext);
-  if (!usuarioContext) {
-    throw new Error("usuarioContext debe estar dentro de un IdUsuarioProvider");
-  }
-  const { setIdUsuario } = usuarioContext;
+
   const [usuario, setUsuario] = useState<string>("");
   const [isValid, setIsValid] = useState<boolean>(false);
   const [pattern, setPattern] = useState<string>("");
@@ -98,13 +81,6 @@ const Usuario: React.FC<UsuarioProps> = ({ usuarioRef }) => {
 };
 
 const Contrasegna: React.FC<ContrasegnaProps> = ({ contrasegnaRef }) => {
-  const contrasegnaContext = useContext(IdContrasegnaContext);
-  if (!contrasegnaContext) {
-    throw new Error(
-      "contrasegnaContext debe estar dentro de un IdContrasegnaProvider"
-    );
-  }
-  const { setIdContrasegna } = contrasegnaContext;
 
   const [contrasegna, setContrasegna] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -117,7 +93,6 @@ const Contrasegna: React.FC<ContrasegnaProps> = ({ contrasegnaRef }) => {
 
     if (value) {
       setIsValid(true);
-      setIdContrasegna(value);
     } else {
       setIsValid(false);
     }
