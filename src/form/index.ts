@@ -4,3 +4,11 @@ export { default as Nuip } from "./Nuip";
 export { default as UbicacionPersona } from "./UbicacionPersona";
 export { default as SexoGeneroPersona } from "./SexoGeneroPersona";
 export { default as CardFormBasicos } from "./CardFormBasicos";
+export {
+  NombreProvider,
+  NuipProvider,
+  ContactoProvider,
+  SexoGeneroProvider,
+  UbicacionProvider,
+  ComplementariosProvider,
+} from "./contexts/index";

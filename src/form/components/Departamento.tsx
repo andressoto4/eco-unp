@@ -17,7 +17,7 @@ const Departamento: React.FC<DepartamentoProps> = ({
   idPais,
   onChange,
   departamentoRef,
-  method
+  method,
 }) => {
   const [departamentos, setDepartamentos] = useState<DepartamentoData[]>([]);
   const [departamentoSeleccionado, setDepartamentoSeleccionado] =
@@ -26,7 +26,7 @@ const Departamento: React.FC<DepartamentoProps> = ({
   useEffect(() => {
     const obtenerDepartamentos = async () => {
       try {
-        const url = `http://localhost:8000/sistema/departamento/?pais=${idPais}`;
+        const url = `https://ecosistemapruebas.unp.gov.co/api-eiunp/sistema/departamento/?pais=${idPais}`;
         const response = await fetch(url);
         if (response.ok) {
           const data: DepartamentoData[] = await response.json();
@@ -65,9 +65,9 @@ const Departamento: React.FC<DepartamentoProps> = ({
       <FormLabel>
         Departamento <span className="text-danger">*</span>
       </FormLabel>
-      {method === 'GET' ?
+      {method === "GET" ? (
         <FormControl type="text" disabled />
-        :
+      ) : (
         <FormSelect
           ref={departamentoRef}
           value={departamentoSeleccionado}
@@ -87,7 +87,7 @@ const Departamento: React.FC<DepartamentoProps> = ({
             </option>
           ))}
         </FormSelect>
-      }
+      )}
     </FormGroup>
   );
 };

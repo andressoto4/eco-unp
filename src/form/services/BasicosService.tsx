@@ -1,7 +1,7 @@
 export const BasicosService = async (datos: {}) => {
   try {
     const response = await fetch(
-      "http://localhost:8000/usuario/datos-basicos/",
+      "https://ecosistemapruebas.unp.gov.co/api-eiunp/usuario/datos-basicos/",
       {
         method: "POST",
         headers: {

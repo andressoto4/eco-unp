@@ -130,7 +130,9 @@ const Zona: React.FC<ZonaProps> = ({ method }) => {
   useEffect(() => {
     const obtenerZonas = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/sistema/zona/`);
+        const response = await fetch(
+          `https://ecosistemapruebas.unp.gov.co/api-eiunp/sistema/zona/`
+        );
         if (response.ok) {
           const data: ZonaData[] = await response.json();
           setZonas(data);
