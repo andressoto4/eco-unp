@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FinSesionHook } from "../hooks/FinSesionHook";
+import { FinSesionHook } from "../../Login/hooks/FinSesionHook";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import {
@@ -19,7 +19,7 @@ import {
   BiFile,
 } from "react-icons/bi";
 import "../styles/MenuLateral.css";
-import { urlCertificadoLaboral, urlBase } from "../../utils/Url";
+import { urlCertificadoLaboral, urlBase } from "../../Utils/Url";
 
 interface MenuLateralProps {
   onToggle: () => void;
