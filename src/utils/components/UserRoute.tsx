@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import { useIdAuth } from "../../Login/hooks/AuthHook";
+import { useIdAuth } from "../hooks/AuthHook";
 
 const UserRoute: React.FC = () => {
   const { authToken, userToken } = useIdAuth();

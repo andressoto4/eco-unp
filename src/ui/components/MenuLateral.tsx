@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { FinSesionHook } from "../../Login/hooks/FinSesionHook";
+import { FinSesionHook } from "../hooks/FinSesionHook";
 import { jwtDecode } from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import {

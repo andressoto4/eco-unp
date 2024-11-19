@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useIdAuth } from "../hooks/AuthHook";
+import { useIdAuth } from "../../Utils/hooks/AuthHook";
 import { FinSesionService } from "../services/FinSesionService";
 
 export const FinSesionHook = () => {

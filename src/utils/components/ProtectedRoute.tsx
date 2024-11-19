@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { useIdAuth } from "../../Login/hooks/AuthHook";
+import { useIdAuth } from "../hooks/AuthHook";
 import { jwtDecode } from "jwt-decode";
 
 interface DecodedToken {
