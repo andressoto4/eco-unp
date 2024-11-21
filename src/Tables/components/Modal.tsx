@@ -19,9 +19,13 @@ const CustomModal: React.FC<CustomModalProps> = ({
 
   useEffect(() => {
     if (show) {
-      setTimeout(() => setShowModal(true), 50);
+      setShowModal(true);
     } else {
-      setShowModal(false);
+      setClosing(true);
+      setTimeout(() => {
+        setShowModal(false);
+        setClosing(false);
+      }, 400);
     }
   }, [show]);
 

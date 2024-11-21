@@ -20,7 +20,8 @@ interface TableProps {
   data: Array<Record<string, any>>;
   renderModalContent?: (
     row: Record<string, any>,
-    column: Column
+    column: Column,
+    onHide: () => void
   ) => React.ReactNode;
   totalDias?: number;
   subtitle: string;
@@ -168,7 +169,7 @@ const BootstrapTable: React.FC<TableProps> = ({
                         }}
                         className={column.hasModal ? "cell-with-modal" : ""}
                       >
-                        {column.key === "diasHabiles" ? (
+                        {column.key === "dias_habiles" ? (
                           <div
                             style={{
                               display: "flex",
@@ -181,14 +182,14 @@ const BootstrapTable: React.FC<TableProps> = ({
                                 borderRadius: "100px",
                                 width: "40px",
                                 backgroundColor: getBackgroundAndTextColor(
-                                  row.diasHabiles
+                                  row.dias_habiles
                                 ).backgroundColor,
                                 color: getBackgroundAndTextColor(
-                                  row.diasHabiles
+                                  row.dias_habiles
                                 ).color,
                               }}
                             >
-                              <span>{row.diasHabiles}</span>
+                              <span>{row.dias_habiles}</span>
                             </div>
                           </div>
                         ) : column.renderComponent ? (
@@ -225,7 +226,9 @@ const BootstrapTable: React.FC<TableProps> = ({
               onHide={() => setShowModal(false)}
               title={`${modalData.column.label}`}
             >
-              {renderModalContent(modalData.row, modalData.column)}
+              {renderModalContent(modalData.row, modalData.column, () =>
+                setShowModal(false)
+              )}
             </CustomModal>
           )}
         </div>

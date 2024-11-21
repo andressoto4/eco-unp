@@ -11,21 +11,21 @@
 }
 
 .cell-with-modal:hover {
-  background-color: #303d50 !important;
+  background-color: #303D50 !important;
   color: white;
   font-weight: 600;
 }
 
 thead tr th {
-  background-color: #fff !important;
-  border-bottom: 1px solid #dee2e6 !important;
+  background-color: #FFF !important;
+  border-bottom: 1px solid #DEE2E6 !important;
   position: sticky;
   top: 0;
   z-index: 2;
+
 }
 
-.table-scroll th,
-.table-scroll td {
+.table-scroll th, .table-scroll td {
   white-space: nowrap;
   word-wrap: normal;
   min-width: 100px;
@@ -43,6 +43,7 @@ thead tr th {
   border-radius: 5px;
 }
 
+
 .table-scroll::-webkit-scrollbar {
   width: 15px;
 }
@@ -52,14 +53,13 @@ thead tr th {
 }
 
 .table-scroll::-webkit-scrollbar-thumb {
-  background-color: #303d50;
+  background-color: #303D50;
   border-radius: 10px;
   border: 3px solid transparent;
   background-clip: padding-box;
 }
 
-.table td,
-.table th {
+.table td, .table th {
   text-align: center; /* Centrado horizontal */
   vertical-align: middle; /* Centrado vertical */
 }
@@ -80,7 +80,7 @@ thead tr th {
   font-weight: 500;
 }
 
-.subtitle-container {
+.subtitle-container{
   display: flex;
   flex-direction: column;
 }
@@ -98,19 +98,19 @@ thead tr th {
   width: 40%;
 }
 
-.red-section {
+.red-section{
   width: 10px;
-  background-color: #d13c47;
+  background-color: #D13C47;
   color: transparent;
 }
 
-.logo-subtitle-container {
+.logo-subtitle-container{
   display: flex;
   gap: 3px;
 }
 
 .custom-button {
-  background-color: #303d50;
+  background-color: #303D50;
   color: white;
   display: flex;
   flex-direction: row;
@@ -119,15 +119,14 @@ thead tr th {
   margin-left: 1rem;
 }
 
-.data-count,
-.data-unp {
+.data-count, .data-unp{
   font-weight: 500;
   font-size: 0.85rem;
   margin-left: 5px;
   color: darkgray;
 }
 
-.animation-container {
+.animation-container{
   gap: 2rem;
   height: 73vh;
   display: flex;
@@ -139,6 +138,6 @@ thead tr th {
 
 @media (min-width: 1800px) {
   .table-scroll {
-    max-height: 75vh;
+      max-height: 75vh;
   }
 }
