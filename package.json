@@ -4,15 +4,15 @@
   "main": "index.js",
   "types": "index.d.ts",
   "exports": {
-    "./ui": "./ui/index.js",
-    "./form": "./form/index.js",
-    "./utils": "./utils/index.js",
-    "./contexts": "./contexts/index.js"
+    "./Forms": "./Forms/index.js",
+    "./Tables": "./Tables/index.js",
+    "./Ui": "./Ui/index.js",
+    "./Utils": "./Utils/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "copy": "copyfiles -u 1 src/ui/styles/**/* dist && copyfiles -u 1 src/ui/assets/**/* dist",
+    "copy": "copyfiles -u 1 src/Ui/styles/**/* dist && copyfiles -u 1 src/Utils/styles/**/* dist && copyfiles -u 1 src/Tables/styles/**/* dist && copyfiles -u 1 src/Tables/assets/**/* dist",
     "pack": "mkdir temp-dist && copyfiles -u 1 dist/**/* temp-dist && copy package.json temp-dist && cd temp-dist && npm pack && move *.tgz .. && cd .. && rmdir /S /Q temp-dist",
     "publish": "mkdir temp-dist && copyfiles -u 1 dist/**/* temp-dist && copy package.json temp-dist && cd temp-dist && npm publish && cd .. && rmdir /S /Q temp-dist"
   },

@@ -1,12 +1,9 @@
+// Exportar componentes reutilizables
 export { default as CardForm } from "./components/CardForm";
 export { default as VentanaLienzo } from "./components/VentanaLienzo";
 export { default as VentanaUsuario } from "./components/VentanaUsuario";
-export { default as InicioSesion } from "./components/InicioSesion";
-export { default as BootstrapTable } from "./components/Tabla";
 export { default as SubtituloForm } from "./components/SubtituloForm";
 export { default as Encabezado } from "./components/Encabezado";
 export { default as TabVentana } from "./components/TabVentana";
-export { default as BusquedaInput } from "./components/Buscador";
-export { default as CustomModal } from "./components/Modal";
-export { default as PaginaNoEncontrada } from "./components/PaginaNoEncontrada";
-export { default as PaginaNoPermitida } from "./components/PaginaNoPermitida";
+export { default as NotificacionUsuario } from "./components/NotificacionUsuario";
+export { default as MenuLateral } from "./components/MenuLateral";
