@@ -27,6 +27,7 @@ interface TableProps {
   subtitle: string;
   items: string;
   extraInput?: React.ReactNode;
+  dateColumnKey?: string;
 }
 
 const getCurrentYear = (): number => {
@@ -48,6 +49,7 @@ const BootstrapTable: React.FC<TableProps> = ({
   subtitle,
   extraInput,
   items,
+  dateColumnKey,
 }) => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [modalData, setModalData] = useState<{
@@ -66,11 +68,21 @@ const BootstrapTable: React.FC<TableProps> = ({
     setHasMoreData(data.length > 15);
   }, [searchTerm, data.length]);
 
-  const filteredData = data.filter((row) =>
-    columns.some((column) =>
-      normalizeText(String(row[column.key])).includes(normalizeText(searchTerm))
+  const filteredData = data
+    .slice()
+    .sort((a, b) =>
+      dateColumnKey
+        ? new Date(b[dateColumnKey]).getTime() -
+          new Date(a[dateColumnKey]).getTime()
+        : 0
     )
-  );
+    .filter((row) =>
+      columns.some((column) =>
+        normalizeText(String(row[column.key])).includes(
+          normalizeText(searchTerm)
+        )
+      )
+    );
 
   const handleScroll = (event: React.UIEvent<HTMLDivElement>) => {
     const { scrollTop, clientHeight, scrollHeight } = event.currentTarget;
